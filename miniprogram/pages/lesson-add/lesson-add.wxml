@@ -1,0 +1,158 @@
+<wxs module="u">
+  module.exports = {
+    includes: function(arr, val) {
+      if (!arr) return false;
+      for (var i = 0; i < arr.length; i++) { if (arr[i] === val) return true; }
+      return false;
+    },
+    starArr: function() { return [1,2,3,4,5]; }
+  }
+</wxs>
+
+<view class="page">
+  <view class="page-title">{{isEdit ? '编辑记录' : '记录打卡'}}</view>
+
+  <!-- 日期 -->
+  <view class="form-item">
+    <text class="form-label">日期</text>
+    <picker mode="date" value="{{date}}" bindchange="onDateChange">
+      <view class="form-input picker-value">{{date}}</view>
+    </picker>
+  </view>
+
+  <!-- 机构 -->
+  <view class="form-item">
+    <text class="form-label">机构 *</text>
+    <picker bindchange="onStudioChange" range="{{studios}}" range-key="name">
+      <view class="form-input picker-value">{{studioName || '选择机构'}}</view>
+    </picker>
+  </view>
+
+  <!-- 老师 -->
+  <view class="form-item">
+    <text class="form-label">老师 *</text>
+    <picker bindchange="onTeacherChange" range="{{filteredTeachers}}" range-key="name">
+      <view class="form-input picker-value">{{teacherName || '选择老师'}}</view>
+    </picker>
+  </view>
+
+  <!-- 课型 -->
+  <view class="form-item">
+    <text class="form-label">课型 *</text>
+    <picker bindchange="onCourseTypeChange" range="{{courseTypes}}" range-key="name">
+      <view class="form-input picker-value">{{courseType || '选择课型'}}</view>
+    </picker>
+  </view>
+
+  <!-- 级别 -->
+  <view class="form-item">
+    <text class="form-label">级别</text>
+    <picker bindchange="onLevelChange" range="{{levels}}" value="{{levelIndex}}">
+      <view class="form-input picker-value">{{level || '选择级别（选填）'}}</view>
+    </picker>
+  </view>
+
+  <!-- 时长 -->
+  <view class="form-item">
+    <text class="form-label">时长（分钟）</text>
+    <input class="form-input" type="number" value="{{durationMin}}" bindinput="onDurationInput" placeholder="60" />
+  </view>
+
+  <!-- 照片 -->
+  <view class="form-item">
+    <text class="form-label">课后照片</text>
+    <view class="photo-grid">
+      <image
+        wx:for="{{photos}}" wx:key="index"
+        class="photo-thumb"
+        src="{{item}}"
+        mode="aspectFill"
+        bindlongpress="onRemovePhoto"
+        data-index="{{index}}"
+      />
+      <view class="photo-add" bindtap="onChoosePhotos" wx:if="{{photos.length < 9}}">
+        <text class="photo-add-icon">+</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 笔记 -->
+  <view class="form-item">
+    <view class="label-row">
+      <text class="form-label">课堂笔记</text>
+      <view class="mic-btn {{recording ? 'mic-active' : ''}}" bindtouchstart="onStartRecord" bindtouchend="onStopRecord">
+        <text class="mic-icon">🎤</text>
+      </view>
+    </view>
+    <textarea class="form-textarea" placeholder="今天的收获和感受..." value="{{notes}}" bindinput="onNotesInput" maxlength="500" auto-height />
+  </view>
+
+  <!-- 身体状态评分 -->
+  <view class="form-item">
+    <text class="form-label">身体状态</text>
+    <view class="star-row">
+      <text
+        wx:for="{{u.starArr()}}" wx:key="*this"
+        class="star {{bodyRating >= item ? 'star-filled' : ''}}"
+        bindtap="onBodyRating"
+        data-star="{{item}}"
+      >★</text>
+    </view>
+  </view>
+
+  <!-- 老师评分 -->
+  <view class="form-item">
+    <text class="form-label">老师带课</text>
+    <view class="star-row">
+      <text
+        wx:for="{{u.starArr()}}" wx:key="*this"
+        class="star {{teacherRating >= item ? 'star-filled' : ''}}"
+        bindtap="onTeacherRatingTap"
+        data-star="{{item}}"
+      >★</text>
+    </view>
+  </view>
+
+  <!-- 主题标签 -->
+  <view class="form-item">
+    <text class="form-label">主题标签</text>
+    <view class="tag-input-row">
+      <input class="tag-input" placeholder="输入标签" value="{{tagInput}}" bindinput="onTagInput" bindconfirm="onAddTag" />
+      <view class="tag-add-btn" bindtap="onAddTag"><text>+</text></view>
+    </view>
+    <!-- 已选标签 -->
+    <view class="tag-chips" wx:if="{{tags.length > 0}}">
+      <view class="tag-chip" wx:for="{{tags}}" wx:key="index">
+        <text class="tag-chip-text">{{item}}</text>
+        <text class="tag-remove" bindtap="onRemoveTag" data-index="{{index}}">×</text>
+      </view>
+    </view>
+    <!-- 历史标签 -->
+    <view class="tag-history" wx:if="{{historyTags.length > 0}}">
+      <text class="tag-history-label">历史标签：</text>
+      <text
+        wx:for="{{historyTags}}" wx:key="*this"
+        class="tag-history-item {{u.includes(tags, item) ? 'tag-used' : ''}}"
+        bindtap="onSelectHistoryTag"
+        data-tag="{{item}}"
+      >{{item}}</text>
+    </view>
+  </view>
+
+  <!-- 愉悦度 Emoji -->
+  <view class="form-item">
+    <text class="form-label">愉悦度</text>
+    <view class="emoji-row">
+      <text
+        wx:for="{{moodEmojis}}" wx:key="*this"
+        class="emoji-item {{moodEmoji === item ? 'emoji-selected' : ''}}"
+        bindtap="onSelectMood"
+        data-emoji="{{item}}"
+      >{{item}}</text>
+    </view>
+  </view>
+
+  <button class="btn-primary save-btn" bindtap="onSave" disabled="{{saving}}">
+    {{isEdit ? '保存修改' : '保存记录'}}
+  </button>
+</view>

@@ -40,5 +40,9 @@ Page({
 
   onManageCourseTypes() {
     wx.navigateTo({ url: '/pages/course-types/course-types' })
+  },
+
+  onImportCSV() {
+    wx.navigateTo({ url: '/pages/csv-import/csv-import' })
   }
 })

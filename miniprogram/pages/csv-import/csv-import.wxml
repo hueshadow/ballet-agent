@@ -1,0 +1,83 @@
+<view class="page">
+  <text class="page-title">CSV 批量导入</text>
+
+  <!-- 步骤 1: 下载模板 & 上传 -->
+  <view class="step-section" wx:if="{{!parsed}}">
+    <view class="step">
+      <text class="step-num">1</text>
+      <view class="step-content">
+        <text class="step-title">下载 CSV 模板</text>
+        <text class="step-desc">在电脑上用 Excel 或 Numbers 填写课时数据</text>
+        <view class="step-btn" bindtap="onDownloadTemplate">
+          <text class="step-btn-text">获取模板</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="step">
+      <text class="step-num">2</text>
+      <view class="step-content">
+        <text class="step-title">上传 CSV 文件</text>
+        <text class="step-desc">从微信聊天记录中选择填好的 CSV 文件</text>
+        <view class="step-btn" bindtap="onChooseFile">
+          <text class="step-btn-text">选择文件</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="tip">
+      <text class="tip-text">必填字段：日期、机构、老师、课型、时长</text>
+      <text class="tip-text">日期格式：YYYY-MM-DD（如 2026-01-15）</text>
+      <text class="tip-text">标签用 | 分隔（如 跳跃|Adagio）</text>
+      <text class="tip-text">单次最多 1000 条</text>
+    </view>
+  </view>
+
+  <!-- 步骤 2: 预览 -->
+  <view class="preview-section" wx:if="{{parsed && !importing && !importResult}}">
+    <view class="preview-summary">
+      <text class="summary-text">共 {{records.length}} 条</text>
+      <text class="summary-error" wx:if="{{errors.length > 0}}">{{errors.length}} 条错误</text>
+    </view>
+
+    <!-- 预览列表（前 20 条） -->
+    <view class="preview-list">
+      <view
+        class="preview-item {{item.status === 'error' ? 'item-error' : ''}}"
+        wx:for="{{records}}"
+        wx:key="row"
+        wx:if="{{index < 20}}"
+      >
+        <text class="preview-row">#{{item.row}}</text>
+        <text class="preview-date">{{item.date}}</text>
+        <text class="preview-studio">{{item.studio}}</text>
+        <text class="preview-teacher">{{item.teacher}}</text>
+        <text class="preview-type">{{item.courseType}}</text>
+      </view>
+      <view class="preview-more" wx:if="{{records.length > 20}}">
+        <text class="more-text">...还有 {{records.length - 20}} 条</text>
+      </view>
+    </view>
+
+    <!-- 错误列表 -->
+    <view class="error-list" wx:if="{{errors.length > 0}}">
+      <text class="error-title">错误详情</text>
+      <view class="error-item" wx:for="{{errors}}" wx:key="row">
+        <text class="error-row">第 {{item.row}} 行：</text>
+        <text class="error-msg">{{item.message}}</text>
+      </view>
+    </view>
+
+    <button class="btn-primary" bindtap="onConfirmImport">
+      确认导入 {{records.length - errors.length}} 条
+    </button>
+  </view>
+
+  <!-- 导入进度 -->
+  <view class="progress-section" wx:if="{{importing}}">
+    <text class="progress-text">正在导入... {{progress}}%</text>
+    <view class="progress-bar">
+      <view class="progress-fill" style="width: {{progress}}%"></view>
+    </view>
+  </view>
+</view>

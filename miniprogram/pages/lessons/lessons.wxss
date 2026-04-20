@@ -5,40 +5,149 @@
   padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
 }
 
-.page-header {
-  margin-bottom: 48rpx;
+/* 搜索栏 */
+.search-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 24rpx;
 }
 
-.page-title {
-  display: block;
-  font-size: var(--font-size-xl);
-  font-weight: 600;
-  color: var(--color-text-primary);
-  letter-spacing: -0.5rpx;
+.search-input {
+  flex: 1;
+  height: 72rpx;
+  padding: 0 24rpx;
+  font-size: var(--font-size-sm);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-full);
 }
 
-.page-subtitle {
-  display: block;
+.filter-toggle {
+  width: 72rpx;
+  height: 72rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-bg-secondary);
+  border-radius: 50%;
+}
+
+.filter-icon { font-size: var(--font-size-lg); }
+
+/* 筛选面板 */
+.filter-panel {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-bottom: 24rpx;
+}
+
+.filter-chip {
+  padding: 10rpx 24rpx;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.clear-chip {
+  color: var(--color-error);
+  border-color: var(--color-error);
+}
+
+/* 列表项 */
+.lesson-item {
+  display: flex;
+  align-items: center;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.lesson-left { margin-right: 20rpx; flex-shrink: 0; }
+
+.lesson-thumb {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: var(--radius-sm);
+}
+
+.lesson-thumb-empty {
+  width: 96rpx;
+  height: 96rpx;
+  border-radius: var(--radius-sm);
+  background: var(--color-bg-secondary);
+}
+
+.lesson-center { flex: 1; min-width: 0; }
+
+.lesson-top-row {
+  display: flex;
+  align-items: center;
+  gap: 8rpx;
+  margin-bottom: 6rpx;
+}
+
+.lesson-date {
   font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
-  margin-top: 8rpx;
 }
 
+.lesson-emoji { font-size: var(--font-size-base); }
+
+.lesson-studio {
+  display: block;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  font-weight: var(--font-weight-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.lesson-meta {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 4rpx;
+}
+
+.lesson-type, .lesson-duration {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.lesson-arrow {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-tertiary);
+  margin-left: 8rpx;
+}
+
+/* 空态 */
 .empty-state {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  height: 400rpx;
+  padding-top: 200rpx;
 }
 
 .empty-text {
   font-size: var(--font-size-base);
   color: var(--color-text-secondary);
-  margin-bottom: 12rpx;
 }
 
 .empty-hint {
   font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
+  margin-top: 12rpx;
+}
+
+.empty-btn {
+  margin-top: 32rpx;
+  padding: 16rpx 48rpx;
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+}
+
+.empty-btn-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-inverse);
 }

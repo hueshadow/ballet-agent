@@ -1,0 +1,78 @@
+<wxs module="u">
+  module.exports = {
+    starArr: function(n) {
+      var arr = [];
+      for (var i = 0; i < n; i++) arr.push('★');
+      return arr.join('');
+    }
+  }
+</wxs>
+
+<view class="page" wx:if="{{loaded && lesson}}">
+  <!-- 照片轮播 -->
+  <swiper class="photo-swiper" wx:if="{{lesson.photos && lesson.photos.length > 0}}" indicator-dots circular>
+    <swiper-item wx:for="{{lesson.photos}}" wx:key="index">
+      <image
+        class="photo-full"
+        src="{{item}}"
+        mode="aspectFill"
+        bindtap="onPreviewImage"
+        data-src="{{item}}"
+      />
+    </swiper-item>
+  </swiper>
+
+  <!-- 基础信息 -->
+  <view class="info-section">
+    <view class="info-header">
+      <view class="info-left">
+        <text class="info-date">{{lesson.date}}</text>
+        <text class="info-emoji" wx:if="{{lesson.moodEmoji}}">{{lesson.moodEmoji}}</text>
+      </view>
+      <text class="info-source">{{lesson.source === 'checkin' ? '打卡' : lesson.source === 'backfill' ? '补录' : lesson.source === 'csv_import' ? 'CSV导入' : ''}}</text>
+    </view>
+
+    <text class="info-studio">{{lesson.studioName}} · {{lesson.teacherName}}</text>
+
+    <view class="info-meta">
+      <text class="meta-item">{{lesson.courseType}}</text>
+      <text class="meta-item" wx:if="{{lesson.level}}">{{lesson.level}}</text>
+      <text class="meta-item">{{lesson.durationMin}}分钟</text>
+    </view>
+  </view>
+
+  <!-- 评分 -->
+  <view class="rating-section" wx:if="{{lesson.bodyRating || lesson.teacherRating}}">
+    <view class="rating-row" wx:if="{{lesson.bodyRating}}">
+      <text class="rating-label">身体状态</text>
+      <text class="rating-stars">{{u.starArr(lesson.bodyRating)}}</text>
+    </view>
+    <view class="rating-row" wx:if="{{lesson.teacherRating}}">
+      <text class="rating-label">老师带课</text>
+      <text class="rating-stars">{{u.starArr(lesson.teacherRating)}}</text>
+    </view>
+  </view>
+
+  <!-- 标签 -->
+  <view class="tags-section" wx:if="{{lesson.tags && lesson.tags.length > 0}}">
+    <text class="tag" wx:for="{{lesson.tags}}" wx:key="index">{{item}}</text>
+  </view>
+
+  <!-- 笔记 -->
+  <view class="notes-section" wx:if="{{lesson.notes}}">
+    <text class="notes-label">课堂笔记</text>
+    <text class="notes-content">{{lesson.notes}}</text>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="actions">
+    <view class="action-row">
+      <button class="btn-secondary action-btn" bindtap="onEdit">编辑</button>
+      <button class="btn-secondary action-btn" bindtap="onCopyAsTemplate">以此为模板新建</button>
+    </view>
+    <button class="btn-secondary action-btn sign-btn" bindtap="onGenerateSign">生成日签</button>
+    <view class="delete-link" bindtap="onDelete">
+      <text class="delete-text">删除这条记录</text>
+    </view>
+  </view>
+</view>

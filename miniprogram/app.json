@@ -10,7 +10,10 @@
     "pages/studio-form/studio-form",
     "pages/teachers/teachers",
     "pages/teacher-form/teacher-form",
-    "pages/course-types/course-types"
+    "pages/course-types/course-types",
+    "pages/lesson-add/lesson-add",
+    "pages/lesson-detail/lesson-detail",
+    "pages/csv-import/csv-import"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",

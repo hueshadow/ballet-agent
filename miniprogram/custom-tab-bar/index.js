@@ -38,7 +38,7 @@ Component({
       const item = this.data.list[index]
 
       if (item.isCenter) {
-        wx.navigateTo({ url: '/pages/checkin/checkin' })
+        wx.navigateTo({ url: '/pages/lesson-add/lesson-add' })
         return
       }
 

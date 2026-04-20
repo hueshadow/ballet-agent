@@ -1,0 +1,199 @@
+@import '/styles/tokens.wxss';
+
+.page { padding: 32rpx; padding-bottom: 120rpx; }
+
+.page-title {
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 32rpx;
+}
+
+.form-item { margin-bottom: 28rpx; }
+
+.form-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: 10rpx;
+}
+
+.form-input {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 24rpx;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.picker-value { line-height: 80rpx; }
+
+.form-textarea {
+  width: 100%;
+  min-height: 120rpx;
+  padding: 20rpx 24rpx;
+  font-size: var(--font-size-base);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+}
+
+/* 照片网格 */
+.photo-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.photo-thumb {
+  width: 160rpx;
+  height: 160rpx;
+  border-radius: var(--radius-sm);
+  object-fit: cover;
+}
+
+.photo-add {
+  width: 160rpx;
+  height: 160rpx;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.photo-add-icon {
+  font-size: 56rpx;
+  color: var(--color-text-tertiary);
+  font-weight: 300;
+}
+
+/* 笔记区域 */
+.label-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10rpx;
+}
+
+.mic-btn {
+  padding: 8rpx 16rpx;
+  border-radius: var(--radius-full);
+  background: var(--color-bg-secondary);
+}
+
+.mic-active { background: var(--color-error); }
+
+.mic-icon { font-size: var(--font-size-base); }
+
+/* 星级评分 */
+.star-row { display: flex; gap: 12rpx; }
+
+.star {
+  font-size: 44rpx;
+  color: var(--color-border);
+}
+
+.star-filled { color: var(--color-text-primary); }
+
+/* 标签 */
+.tag-input-row {
+  display: flex;
+  gap: 12rpx;
+}
+
+.tag-input {
+  flex: 1;
+  height: 72rpx;
+  padding: 0 24rpx;
+  font-size: var(--font-size-base);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.tag-add-btn {
+  width: 72rpx;
+  height: 72rpx;
+  background: var(--color-accent);
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-lg);
+}
+
+.tag-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+  margin-top: 16rpx;
+}
+
+.tag-chip {
+  display: flex;
+  align-items: center;
+  padding: 8rpx 20rpx;
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+  gap: 8rpx;
+}
+
+.tag-chip-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-inverse);
+}
+
+.tag-remove {
+  font-size: var(--font-size-base);
+  color: var(--color-text-inverse);
+  opacity: 0.7;
+}
+
+.tag-history {
+  margin-top: 16rpx;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12rpx;
+}
+
+.tag-history-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.tag-history-item {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  padding: 6rpx 16rpx;
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.tag-used { opacity: 0.3; }
+
+/* Emoji */
+.emoji-row {
+  display: flex;
+  gap: 16rpx;
+  flex-wrap: wrap;
+}
+
+.emoji-item {
+  font-size: 48rpx;
+  padding: 8rpx;
+  border-radius: var(--radius-sm);
+  opacity: 0.5;
+}
+
+.emoji-selected {
+  opacity: 1;
+  background: var(--color-bg-secondary);
+}
+
+.save-btn { margin-top: 32rpx; }

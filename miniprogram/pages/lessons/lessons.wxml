@@ -1,11 +1,67 @@
 <view class="page">
-  <view class="page-header">
-    <text class="page-title">上课记录</text>
-    <text class="page-subtitle">记录每一节课</text>
+  <!-- 搜索栏 -->
+  <view class="search-row">
+    <input
+      class="search-input"
+      placeholder="搜索笔记或标签"
+      value="{{keyword}}"
+      bindinput="onSearchInput"
+      bindconfirm="onSearch"
+    />
+    <view class="filter-toggle" bindtap="onToggleFilter">
+      <text class="filter-icon">⚙</text>
+    </view>
   </view>
 
-  <view class="empty-state">
+  <!-- 筛选面板 -->
+  <view class="filter-panel" wx:if="{{showFilter}}">
+    <picker bindchange="onFilterStudio" range="{{['全部机构'].concat(studios)}}" range-key="name" value="0">
+      <view class="filter-chip">机构 ▾</view>
+    </picker>
+    <picker bindchange="onFilterCourseType" range="{{['全部课型'].concat(courseTypes)}}" range-key="name" value="0">
+      <view class="filter-chip">课型 ▾</view>
+    </picker>
+    <picker mode="date" fields="month" bindchange="onFilterMonth">
+      <view class="filter-chip">月份 ▾</view>
+    </picker>
+    <view class="filter-chip clear-chip" bindtap="onClearFilters">
+      <text>清除</text>
+    </view>
+  </view>
+
+  <!-- 列表 -->
+  <view class="lesson-list" wx:if="{{lessons.length > 0}}">
+    <view class="lesson-item" wx:for="{{lessons}}" wx:key="_id" bindtap="onViewDetail" data-id="{{item._id}}">
+      <view class="lesson-left">
+        <image
+          wx:if="{{item.photos && item.photos.length > 0}}"
+          class="lesson-thumb"
+          src="{{item.photos[0]}}"
+          mode="aspectFill"
+        />
+        <view wx:else class="lesson-thumb-empty"></view>
+      </view>
+      <view class="lesson-center">
+        <view class="lesson-top-row">
+          <text class="lesson-date">{{item.date}}</text>
+          <text class="lesson-emoji" wx:if="{{item.moodEmoji}}">{{item.moodEmoji}}</text>
+        </view>
+        <text class="lesson-studio">{{item.studioName}} · {{item.teacherName}}</text>
+        <view class="lesson-meta">
+          <text class="lesson-type">{{item.courseType}}</text>
+          <text class="lesson-duration">{{item.durationMin}}分钟</text>
+        </view>
+      </view>
+      <text class="lesson-arrow">›</text>
+    </view>
+  </view>
+
+  <!-- 空态 -->
+  <view class="empty-state" wx:if="{{loaded && lessons.length === 0}}">
     <text class="empty-text">还没有上课记录</text>
     <text class="empty-hint">点击下方 + 号记录第一节课</text>
+    <view class="empty-btn" bindtap="onAdd">
+      <text class="empty-btn-text">开始记录</text>
+    </view>
   </view>
 </view>
