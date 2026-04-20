@@ -5,33 +5,188 @@
   padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
 }
 
-.page-header {
-  margin-bottom: 48rpx;
+/* 核心指标卡片 */
+.stat-cards {
+  display: flex;
+  gap: 16rpx;
+  margin-bottom: 32rpx;
 }
 
-.page-title {
-  display: block;
-  font-size: var(--font-size-xl);
-  font-weight: 600;
+.stat-card {
+  flex: 1;
+  padding: 32rpx;
+  border: 1rpx solid var(--color-border-light);
+  border-radius: var(--radius-md);
+}
+
+.stat-number {
+  font-size: 64rpx;
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
-  letter-spacing: -0.5rpx;
+  letter-spacing: -2rpx;
+  line-height: 1;
 }
 
-.page-subtitle {
+.stat-unit {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin-left: 4rpx;
+}
+
+.stat-label {
   display: block;
   font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
-  margin-top: 8rpx;
+  margin-top: 12rpx;
 }
 
+.stat-sub {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-top: 4rpx;
+}
+
+/* 本周进度 */
+.week-section {
+  margin-bottom: 32rpx;
+  padding: 28rpx 32rpx;
+  border: 1rpx solid var(--color-border-light);
+  border-radius: var(--radius-md);
+}
+
+.week-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 16rpx;
+}
+
+.week-title {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.week-count {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.progress-track {
+  height: 12rpx;
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-full);
+  overflow: hidden;
+}
+
+.progress-fill {
+  height: 100%;
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+  transition: width 0.5s var(--ease-out);
+}
+
+/* 最近课时 */
+.last-lesson {
+  margin-bottom: 40rpx;
+  text-align: center;
+}
+
+.last-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}
+
+/* 里程碑 */
+.milestone-section { margin-bottom: 32rpx; }
+
+.section-title {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: 20rpx;
+}
+
+.milestone-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12rpx;
+}
+
+.milestone {
+  padding: 16rpx 24rpx;
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-md);
+  text-align: center;
+  min-width: 140rpx;
+}
+
+.milestone-done {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.milestone-done .milestone-num,
+.milestone-done .milestone-label {
+  color: var(--color-text-inverse);
+}
+
+.milestone-num {
+  display: block;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.milestone-label {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-top: 4rpx;
+}
+
+/* 统计链接 */
+.stats-link {
+  text-align: center;
+  padding: 24rpx;
+}
+
+.stats-link-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* 空态 */
 .empty-state {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: 400rpx;
+  padding-top: 300rpx;
+}
+
+.empty-title {
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+  letter-spacing: -1rpx;
 }
 
 .empty-text {
-  font-size: var(--font-size-base);
+  font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
+  margin-top: 16rpx;
+}
+
+.empty-btn {
+  margin-top: 48rpx;
+  padding: 20rpx 56rpx;
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+}
+
+.empty-btn-text {
+  font-size: var(--font-size-base);
+  color: var(--color-text-inverse);
 }

@@ -1,0 +1,63 @@
+<view class="page" wx:if="{{loaded && stats}}">
+  <!-- 12 个月课时趋势 -->
+  <view class="chart-section">
+    <text class="chart-title">近 12 个月课时</text>
+    <view class="bar-chart">
+      <view class="bar-col" wx:for="{{stats.monthly}}" wx:key="month">
+        <view class="bar-value" wx:if="{{item.count > 0}}">{{item.count}}</view>
+        <view class="bar-fill-wrap">
+          <view class="bar-fill" style="height: {{item.percent}}%"></view>
+        </view>
+        <text class="bar-label">{{item.month.slice(5)}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 机构分布 -->
+  <view class="chart-section" wx:if="{{stats.studioDist.length > 0}}">
+    <text class="chart-title">机构分布</text>
+    <view class="h-bar-list">
+      <view class="h-bar-item" wx:for="{{stats.studioDist}}" wx:key="name">
+        <text class="h-bar-name">{{item.name}}</text>
+        <view class="h-bar-track">
+          <view class="h-bar-fill" style="width: {{item.percent}}%"></view>
+        </view>
+        <text class="h-bar-count">{{item.count}} 节 ({{item.percent}}%)</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 老师 Top10 -->
+  <view class="chart-section" wx:if="{{stats.teacherDist.length > 0}}">
+    <text class="chart-title">老师 Top{{stats.teacherDist.length > 10 ? 10 : stats.teacherDist.length}}</text>
+    <view class="h-bar-list">
+      <view class="h-bar-item" wx:for="{{stats.teacherDist}}" wx:key="name">
+        <text class="h-bar-name">{{item.name}}</text>
+        <view class="h-bar-track">
+          <view class="h-bar-fill" style="width: {{item.percent}}%"></view>
+        </view>
+        <text class="h-bar-count">{{item.count}} 节</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 课型分布 -->
+  <view class="chart-section" wx:if="{{stats.typeDist.length > 0}}">
+    <text class="chart-title">课型分布</text>
+    <view class="h-bar-list">
+      <view class="h-bar-item" wx:for="{{stats.typeDist}}" wx:key="name">
+        <text class="h-bar-name">{{item.name}}</text>
+        <view class="h-bar-track">
+          <view class="h-bar-fill" style="width: {{item.percent}}%"></view>
+        </view>
+        <text class="h-bar-count">{{item.count}} 节 ({{item.percent}}%)</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 空态 -->
+  <view class="empty-state" wx:if="{{stats.totalCount === 0}}">
+    <text class="empty-text">暂无统计数据</text>
+    <text class="empty-hint">记录课时后这里会出现图表</text>
+  </view>
+</view>

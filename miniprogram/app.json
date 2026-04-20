@@ -13,7 +13,8 @@
     "pages/course-types/course-types",
     "pages/lesson-add/lesson-add",
     "pages/lesson-detail/lesson-detail",
-    "pages/csv-import/csv-import"
+    "pages/csv-import/csv-import",
+    "pages/stats/stats"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",

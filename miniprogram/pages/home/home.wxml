@@ -1,10 +1,76 @@
-<view class="page">
-  <view class="page-header">
-    <text class="page-title">首页</text>
-    <text class="page-subtitle">课时统计看板</text>
-  </view>
+<wxs module="u">
+  module.exports = {
+    percent: function(current, goal) {
+      if (!goal) return 0;
+      var p = Math.round((current / goal) * 100);
+      return p > 100 ? 100 : p;
+    }
+  }
+</wxs>
 
-  <view class="empty-state">
-    <text class="empty-text">统计看板开发中</text>
-  </view>
+<view class="page" wx:if="{{loaded}}">
+  <!-- 有数据 -->
+  <block wx:if="{{stats && stats.totalCount > 0}}">
+    <!-- 核心指标 -->
+    <view class="stat-cards">
+      <view class="stat-card">
+        <text class="stat-number">{{stats.monthCount}}</text>
+        <text class="stat-unit">节</text>
+        <text class="stat-label">本月课时</text>
+        <text class="stat-sub">{{stats.monthHours}} 小时</text>
+      </view>
+      <view class="stat-card">
+        <text class="stat-number">{{stats.totalCount}}</text>
+        <text class="stat-unit">节</text>
+        <text class="stat-label">累计课时</text>
+        <text class="stat-sub">{{stats.totalHours}} 小时</text>
+      </view>
+    </view>
+
+    <!-- 本周进度 -->
+    <view class="week-section">
+      <view class="week-header">
+        <text class="week-title">本周进度</text>
+        <text class="week-count">{{stats.weekCount}} / {{weekGoal}} 节</text>
+      </view>
+      <view class="progress-track">
+        <view class="progress-fill" style="width: {{u.percent(stats.weekCount, weekGoal)}}%"></view>
+      </view>
+    </view>
+
+    <!-- 最近课时 -->
+    <view class="last-lesson">
+      <text class="last-text" wx:if="{{stats.daysSinceLast === 0}}">今天刚上了课</text>
+      <text class="last-text" wx:elif="{{stats.daysSinceLast === 1}}">昨天上了课</text>
+      <text class="last-text" wx:else>距上次上课 {{stats.daysSinceLast}} 天</text>
+    </view>
+
+    <!-- 成长里程碑 -->
+    <view class="milestone-section">
+      <text class="section-title">成长里程碑</text>
+      <view class="milestone-list">
+        <view class="milestone {{item.achieved ? 'milestone-done' : ''}}" wx:for="{{stats.milestones}}" wx:key="target">
+          <text class="milestone-num">{{item.target}}</text>
+          <text class="milestone-label" wx:if="{{item.achieved}}">{{item.date}}</text>
+          <text class="milestone-label" wx:else>{{stats.totalCount}}/{{item.target}}</text>
+        </view>
+      </view>
+    </view>
+
+    <!-- 查看详细统计 -->
+    <view class="stats-link" bindtap="onViewStats">
+      <text class="stats-link-text">查看详细统计 ›</text>
+    </view>
+  </block>
+
+  <!-- 空态 -->
+  <block wx:else>
+    <view class="empty-state">
+      <text class="empty-title">芭蕾管家</text>
+      <text class="empty-text">记录每一节课，见证你的成长</text>
+      <view class="empty-btn" bindtap="onAddLesson">
+        <text class="empty-btn-text">记录第一节课</text>
+      </view>
+    </view>
+  </block>
 </view>

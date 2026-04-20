@@ -130,6 +130,112 @@ module.exports.main = createRouter({
     return success(null)
   },
 
+  /** 统计数据（首页看板 + 统计页） */
+  async getStats(event, openid, db) {
+    // 拉取所有记录的关键字段
+    const allRes = await db.collection('lessons')
+      .where({ _openid: openid })
+      .field({ date: true, durationMin: true, studioName: true, teacherName: true, courseType: true })
+      .orderBy('date', 'asc')
+      .limit(1000)
+      .get()
+
+    const lessons = allRes.data
+    const total = lessons.length
+    if (total === 0) {
+      return success({
+        totalCount: 0, totalHours: 0,
+        monthCount: 0, monthHours: 0,
+        weekCount: 0, weekGoal: 3,
+        daysSinceLast: -1,
+        monthly: [], studioDist: [], teacherDist: [], typeDist: [],
+        milestones: []
+      })
+    }
+
+    const now = new Date()
+    const todayStr = now.toISOString().slice(0, 10)
+    const currentMonth = todayStr.slice(0, 7)
+
+    // 本周起止（周一开始）
+    const dayOfWeek = now.getDay() || 7
+    const weekStart = new Date(now)
+    weekStart.setDate(now.getDate() - dayOfWeek + 1)
+    const weekStartStr = weekStart.toISOString().slice(0, 10)
+
+    let totalHours = 0, monthCount = 0, monthHours = 0, weekCount = 0
+
+    // 分布统计
+    const studioMap = {}, teacherMap = {}, typeMap = {}, monthlyMap = {}
+
+    lessons.forEach(l => {
+      const hours = (l.durationMin || 60) / 60
+      totalHours += hours
+
+      if (l.date && l.date.startsWith(currentMonth)) {
+        monthCount++
+        monthHours += hours
+      }
+
+      if (l.date && l.date >= weekStartStr && l.date <= todayStr) {
+        weekCount++
+      }
+
+      // 月度趋势
+      const m = (l.date || '').slice(0, 7)
+      if (m) monthlyMap[m] = (monthlyMap[m] || 0) + 1
+
+      // 分布
+      if (l.studioName) studioMap[l.studioName] = (studioMap[l.studioName] || 0) + 1
+      if (l.teacherName) teacherMap[l.teacherName] = (teacherMap[l.teacherName] || 0) + 1
+      if (l.courseType) typeMap[l.courseType] = (typeMap[l.courseType] || 0) + 1
+    })
+
+    // 最近一节课距今天数
+    const lastDate = lessons[lessons.length - 1].date
+    const diffMs = new Date(todayStr) - new Date(lastDate)
+    const daysSinceLast = Math.max(0, Math.floor(diffMs / 86400000))
+
+    // 近 12 个月折线
+    const monthly = []
+    for (let i = 11; i >= 0; i--) {
+      const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
+      const key = d.toISOString().slice(0, 7)
+      monthly.push({ month: key, count: monthlyMap[key] || 0 })
+    }
+
+    // 分布排序
+    const toSorted = (map) => Object.entries(map)
+      .map(([name, count]) => ({ name, count }))
+      .sort((a, b) => b.count - a.count)
+
+    const teacherDist = toSorted(teacherMap).slice(0, 10)
+
+    // 里程碑
+    const MILESTONES = [10, 50, 100, 200, 500, 1000]
+    const milestones = MILESTONES.map(target => {
+      if (total >= target) {
+        const achievedLesson = lessons[target - 1]
+        return { target, achieved: true, date: achievedLesson ? achievedLesson.date : '' }
+      }
+      return { target, achieved: false, current: total }
+    })
+
+    return success({
+      totalCount: total,
+      totalHours: Math.round(totalHours * 10) / 10,
+      monthCount,
+      monthHours: Math.round(monthHours * 10) / 10,
+      weekCount,
+      daysSinceLast,
+      monthly,
+      studioDist: toSorted(studioMap),
+      teacherDist,
+      typeDist: toSorted(typeMap),
+      milestones
+    })
+  },
+
   /** 获取历史标签（去重） */
   async getTags(event, openid, db) {
     const res = await db.collection('lessons')
