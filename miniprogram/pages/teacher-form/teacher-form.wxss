@@ -1,0 +1,88 @@
+@import '/styles/tokens.wxss';
+
+.page { padding: 32rpx; }
+.form { margin-bottom: 48rpx; }
+.form-item { margin-bottom: 32rpx; }
+
+.form-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: 12rpx;
+}
+
+.form-input {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 24rpx;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 120rpx;
+  padding: 20rpx 24rpx;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+}
+
+/* 机构多选 chip */
+.studio-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16rpx;
+}
+
+.chip {
+  padding: 12rpx 28rpx;
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-bg-primary);
+}
+
+.chip-active {
+  background: var(--color-accent);
+  border-color: var(--color-accent);
+}
+
+.chip-active .chip-text {
+  color: var(--color-text-inverse);
+}
+
+.chip-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+.chip-empty {
+  padding: 12rpx 0;
+}
+
+/* 头像上传 */
+.logo-picker {
+  width: 128rpx;
+  height: 128rpx;
+  background: var(--color-bg-secondary);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.logo-preview {
+  width: 100%;
+  height: 100%;
+}
+
+.logo-placeholder {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}

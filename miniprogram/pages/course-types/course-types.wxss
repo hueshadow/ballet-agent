@@ -1,0 +1,84 @@
+@import '/styles/tokens.wxss';
+
+.page { padding: 32rpx; }
+
+.page-title {
+  display: block;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: 32rpx;
+}
+
+/* 新增行 */
+.add-row {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+  margin-bottom: 32rpx;
+}
+
+.add-input {
+  flex: 1;
+  height: 76rpx;
+  padding: 0 24rpx;
+  font-size: var(--font-size-base);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+}
+
+.add-btn {
+  padding: 16rpx 32rpx;
+  background: var(--color-accent);
+  border-radius: var(--radius-md);
+  flex-shrink: 0;
+}
+
+.add-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-inverse);
+}
+
+/* 列表 */
+.list-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx 0;
+  border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.item-info {
+  display: flex;
+  align-items: center;
+  gap: 16rpx;
+}
+
+.item-name {
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+}
+
+.item-tag {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  padding: 4rpx 12rpx;
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.action-delete {
+  font-size: var(--font-size-sm);
+  color: var(--color-error);
+}
+
+.empty-state {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-top: 200rpx;
+}
+
+.empty-text {
+  font-size: var(--font-size-base);
+  color: var(--color-text-tertiary);
+}

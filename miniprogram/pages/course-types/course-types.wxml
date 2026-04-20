@@ -1,0 +1,40 @@
+<view class="page">
+  <text class="page-title">课型管理</text>
+
+  <!-- 新增输入框 -->
+  <view class="add-row">
+    <input
+      class="add-input"
+      placeholder="输入自定义课型名称"
+      value="{{newName}}"
+      bindinput="onNewNameInput"
+      confirm-type="done"
+      bindconfirm="onAdd"
+    />
+    <view class="add-btn" bindtap="onAdd">
+      <text class="add-text">添加</text>
+    </view>
+  </view>
+
+  <!-- 课型列表 -->
+  <view class="list">
+    <view class="list-item" wx:for="{{courseTypes}}" wx:key="_id">
+      <view class="item-info">
+        <text class="item-name">{{item.name}}</text>
+        <text class="item-tag" wx:if="{{item.builtIn}}">预置</text>
+      </view>
+      <text
+        class="action-delete"
+        wx:if="{{!item.builtIn}}"
+        bindtap="onDelete"
+        data-id="{{item._id}}"
+        data-name="{{item.name}}"
+        data-builtin="{{item.builtIn}}"
+      >删除</text>
+    </view>
+  </view>
+
+  <view class="empty-state" wx:if="{{loaded && courseTypes.length === 0}}">
+    <text class="empty-text">正在初始化课型...</text>
+  </view>
+</view>

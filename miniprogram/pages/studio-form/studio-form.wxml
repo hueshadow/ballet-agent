@@ -1,0 +1,35 @@
+<view class="page">
+  <view class="form">
+    <view class="form-item">
+      <text class="form-label">名称 *</text>
+      <input class="form-input" placeholder="机构名称" value="{{name}}" bindinput="onNameInput" />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">城市</text>
+      <input class="form-input" placeholder="所在城市" value="{{city}}" bindinput="onCityInput" />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">地址</text>
+      <input class="form-input" placeholder="详细地址（选填）" value="{{address}}" bindinput="onAddressInput" />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">Logo</text>
+      <view class="logo-picker" bindtap="onChooseLogo">
+        <image
+          wx:if="{{logoTempUrl || logoFileId}}"
+          class="logo-preview"
+          src="{{logoTempUrl || logoFileId}}"
+          mode="aspectFill"
+        />
+        <text wx:else class="logo-placeholder">+ 上传图片</text>
+      </view>
+    </view>
+  </view>
+
+  <button class="btn-primary" bindtap="onSave" disabled="{{saving}}">
+    {{isEdit ? '保存修改' : '创建机构'}}
+  </button>
+</view>

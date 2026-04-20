@@ -1,0 +1,100 @@
+@import '/styles/tokens.wxss';
+
+.page {
+  padding: 32rpx;
+}
+
+.page-header {
+  margin-bottom: 48rpx;
+  text-align: center;
+}
+
+.page-title {
+  display: block;
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.page-subtitle {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin-top: 12rpx;
+}
+
+/* 头像 */
+.avatar-section {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 40rpx;
+}
+
+.avatar-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  line-height: normal;
+}
+
+.avatar-btn::after {
+  border: none;
+}
+
+.avatar-preview {
+  width: 144rpx;
+  height: 144rpx;
+  border-radius: 50%;
+  background: var(--color-bg-secondary);
+}
+
+.avatar-hint {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-top: 12rpx;
+}
+
+/* 表单 */
+.form {
+  margin-bottom: 48rpx;
+}
+
+.form-item {
+  margin-bottom: 32rpx;
+}
+
+.form-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: 12rpx;
+}
+
+.form-input {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 24rpx;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+}
+
+.form-textarea {
+  width: 100%;
+  min-height: 160rpx;
+  padding: 20rpx 24rpx;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+}
+
+.save-btn {
+  margin-top: 16rpx;
+}

@@ -1,0 +1,66 @@
+<wxs module="util">
+  module.exports = {
+    includes: function(arr, val) {
+      if (!arr) return false;
+      for (var i = 0; i < arr.length; i++) {
+        if (arr[i] === val) return true;
+      }
+      return false;
+    }
+  }
+</wxs>
+
+<view class="page">
+  <view class="form">
+    <view class="form-item">
+      <text class="form-label">名称 *</text>
+      <input class="form-input" placeholder="老师名称" value="{{name}}" bindinput="onNameInput" />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">所属机构（可多选）</text>
+      <view class="studio-chips">
+        <view
+          wx:for="{{studios}}" wx:key="_id"
+          class="chip {{util.includes(studioIds, item._id) ? 'chip-active' : ''}}"
+          bindtap="onToggleStudio"
+          data-id="{{item._id}}"
+        >
+          <text class="chip-text">{{item.name}}</text>
+        </view>
+        <view class="chip-empty" wx:if="{{studios.length === 0}}">
+          <text class="chip-text">请先添加机构</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">简介</text>
+      <textarea
+        class="form-textarea"
+        placeholder="老师简介（选填）"
+        value="{{intro}}"
+        bindinput="onIntroInput"
+        maxlength="200"
+        auto-height
+      />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">头像</text>
+      <view class="logo-picker" bindtap="onChooseAvatar">
+        <image
+          wx:if="{{avatarTempUrl || avatarFileId}}"
+          class="logo-preview"
+          src="{{avatarTempUrl || avatarFileId}}"
+          mode="aspectFill"
+        />
+        <text wx:else class="logo-placeholder">+ 上传头像</text>
+      </view>
+    </view>
+  </view>
+
+  <button class="btn-primary" bindtap="onSave" disabled="{{saving}}">
+    {{isEdit ? '保存修改' : '创建老师'}}
+  </button>
+</view>

@@ -4,7 +4,13 @@
     "pages/lessons/lessons",
     "pages/checkin/checkin",
     "pages/moves/moves",
-    "pages/profile/profile"
+    "pages/profile/profile",
+    "pages/profile-edit/profile-edit",
+    "pages/studios/studios",
+    "pages/studio-form/studio-form",
+    "pages/teachers/teachers",
+    "pages/teacher-form/teacher-form",
+    "pages/course-types/course-types"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",

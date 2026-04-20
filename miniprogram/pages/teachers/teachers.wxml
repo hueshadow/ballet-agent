@@ -1,0 +1,71 @@
+<wxs module="helper">
+  module.exports = {
+    getStudioNames: function(studioIds, studios) {
+      if (!studioIds || studioIds.length === 0) return '';
+      var names = [];
+      for (var i = 0; i < studioIds.length; i++) {
+        for (var j = 0; j < studios.length; j++) {
+          if (studios[j]._id === studioIds[i]) {
+            names.push(studios[j].name);
+            break;
+          }
+        }
+      }
+      return names.join('、');
+    },
+    filterTeachers: function(teachers, studioId) {
+      if (!studioId) return teachers;
+      var result = [];
+      for (var i = 0; i < teachers.length; i++) {
+        var t = teachers[i];
+        if (t.studioIds) {
+          for (var j = 0; j < t.studioIds.length; j++) {
+            if (t.studioIds[j] === studioId) {
+              result.push(t);
+              break;
+            }
+          }
+        }
+      }
+      return result;
+    }
+  }
+</wxs>
+
+<view class="page">
+  <view class="header-row">
+    <text class="page-title">老师管理</text>
+    <view class="add-btn" bindtap="onAdd">
+      <text class="add-text">+ 新建</text>
+    </view>
+  </view>
+
+  <!-- 机构筛选 -->
+  <view class="filter-row" wx:if="{{studios.length > 0}}">
+    <picker bindchange="onFilterChange" range="{{['全部机构'].concat(studios)}}" range-key="name" value="0">
+      <view class="filter-btn">
+        <text class="filter-text">{{filterStudioId ? '已筛选' : '全部机构'}} ▾</text>
+      </view>
+    </picker>
+  </view>
+
+  <!-- 列表 -->
+  <block wx:for="{{helper.filterTeachers(teachers, filterStudioId)}}" wx:key="_id">
+    <view class="list-item">
+      <view class="item-info" bindtap="onEdit" data-id="{{item._id}}">
+        <text class="item-name">{{item.name}}</text>
+        <text class="item-sub">{{helper.getStudioNames(item.studioIds, studios)}}</text>
+      </view>
+      <view class="item-actions">
+        <text class="action-edit" bindtap="onEdit" data-id="{{item._id}}">编辑</text>
+        <text class="action-delete" bindtap="onDelete" data-id="{{item._id}}" data-name="{{item.name}}">删除</text>
+      </view>
+    </view>
+  </block>
+
+  <!-- 空态 -->
+  <view class="empty-state" wx:if="{{loaded && teachers.length === 0}}">
+    <text class="empty-text">还没有添加老师</text>
+    <text class="empty-hint">添加你常上课的老师</text>
+  </view>
+</view>

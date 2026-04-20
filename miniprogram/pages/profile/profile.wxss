@@ -5,33 +5,90 @@
   padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
 }
 
-.page-header {
-  margin-bottom: 48rpx;
+/* 用户卡片 */
+.profile-card {
+  display: flex;
+  align-items: center;
+  padding: 32rpx 0;
+  margin-bottom: 16rpx;
 }
 
-.page-title {
+.avatar {
+  width: 112rpx;
+  height: 112rpx;
+  border-radius: 50%;
+  background: var(--color-bg-secondary);
+  flex-shrink: 0;
+}
+
+.profile-info {
+  flex: 1;
+  margin-left: 24rpx;
+}
+
+.nickname {
   display: block;
-  font-size: var(--font-size-xl);
-  font-weight: 600;
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
   color: var(--color-text-primary);
-  letter-spacing: -0.5rpx;
 }
 
-.page-subtitle {
+.dance-age {
   display: block;
   font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
-  margin-top: 8rpx;
+  margin-top: 6rpx;
 }
 
-.empty-state {
+.edit-btn {
+  padding: 12rpx 28rpx;
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+.edit-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+}
+
+/* 信息区块 */
+.section {
+  padding: 20rpx 0;
+  border-bottom: 1rpx solid var(--color-border-light);
+}
+
+.section-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin-bottom: 8rpx;
+}
+
+.section-value {
+  display: block;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+}
+
+/* 管理菜单 */
+.menu-group {
+  margin-top: 40rpx;
+}
+
+.menu-item {
   display: flex;
   align-items: center;
-  justify-content: center;
-  height: 400rpx;
+  justify-content: space-between;
+  padding: 32rpx 0;
+  border-bottom: 1rpx solid var(--color-border-light);
 }
 
-.empty-text {
+.menu-label {
   font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+}
+
+.menu-arrow {
+  font-size: var(--font-size-lg);
   color: var(--color-text-tertiary);
 }
