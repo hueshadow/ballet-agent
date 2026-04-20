@@ -31,6 +31,14 @@
     <text class="section-value">{{profile.weeklyGoal || 3}} 节课</text>
   </view>
 
+  <!-- 功能入口 -->
+  <view class="menu-group">
+    <view class="menu-item" bindtap="onSchedule">
+      <text class="menu-label">个人课表</text>
+      <text class="menu-arrow">›</text>
+    </view>
+  </view>
+
   <!-- 管理入口 -->
   <view class="menu-group">
     <view class="menu-item" bindtap="onManageStudios">

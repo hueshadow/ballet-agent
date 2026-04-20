@@ -26,6 +26,10 @@ Page({
     }
   },
 
+  onSchedule() {
+    wx.navigateTo({ url: '/pages/schedule/schedule' })
+  },
+
   onEditProfile() {
     wx.navigateTo({ url: '/pages/profile-edit/profile-edit?mode=edit' })
   },

@@ -1,0 +1,59 @@
+<view class="page">
+  <view class="form">
+    <view class="form-item">
+      <text class="form-label">日期 *</text>
+      <picker mode="date" value="{{date}}" bindchange="onDateChange">
+        <view class="form-input picker-value">{{date}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">开始时间 *</text>
+      <picker mode="time" value="{{startTime}}" bindchange="onTimeChange">
+        <view class="form-input picker-value">{{startTime}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">时长（分钟）</text>
+      <input class="form-input" type="number" value="{{durationMin}}" bindinput="onDurationInput" placeholder="60" />
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">机构 *</text>
+      <picker bindchange="onStudioChange" range="{{studios}}" range-key="name">
+        <view class="form-input picker-value">{{studioName || '选择机构'}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">老师</text>
+      <picker bindchange="onTeacherChange" range="{{filteredTeachers}}" range-key="name">
+        <view class="form-input picker-value">{{teacherName || '选择老师（选填）'}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">课型</text>
+      <picker bindchange="onCourseTypeChange" range="{{courseTypes}}" range-key="name">
+        <view class="form-input picker-value">{{courseType || '选择课型（选填）'}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item" wx:if="{{!isEdit}}">
+      <text class="form-label">重复规则</text>
+      <picker bindchange="onRepeatChange" range="{{repeatRules}}" value="{{repeatIndex}}">
+        <view class="form-input picker-value">{{repeatRules[repeatIndex]}}</view>
+      </picker>
+    </view>
+
+    <view class="form-item">
+      <text class="form-label">提前提醒（分钟）</text>
+      <input class="form-input" type="number" value="{{reminderLeadMin}}" bindinput="onReminderInput" placeholder="30" />
+    </view>
+  </view>
+
+  <button class="btn-primary" bindtap="onSave" disabled="{{saving}}">
+    {{isEdit ? '保存修改' : '创建课程'}}
+  </button>
+</view>

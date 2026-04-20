@@ -1,0 +1,75 @@
+<wxs module="u">
+  module.exports = {
+    includes: function(arr, val) {
+      if (!arr) return false;
+      for (var i = 0; i < arr.length; i++) { if (arr[i] === val) return true; }
+      return false;
+    }
+  }
+</wxs>
+
+<view class="page">
+  <!-- 日历头 -->
+  <view class="cal-header">
+    <view class="cal-nav" bindtap="onPrevMonth"><text>‹</text></view>
+    <text class="cal-title">{{year}} 年 {{month}} 月</text>
+    <view class="cal-nav" bindtap="onNextMonth"><text>›</text></view>
+    <view class="add-btn" bindtap="onAdd"><text class="add-text">+ 新建</text></view>
+  </view>
+
+  <!-- 星期头 -->
+  <view class="cal-weekdays">
+    <text class="cal-wd" wx:for="{{weekdays}}" wx:key="*this">{{item}}</text>
+  </view>
+
+  <!-- 日历网格 -->
+  <view class="cal-grid">
+    <view
+      wx:for="{{calendarDays}}" wx:key="index"
+      class="cal-day {{item.date === selectedDate ? 'cal-selected' : ''}} {{!item.day ? 'cal-empty' : ''}}"
+      bindtap="onSelectDate"
+      data-date="{{item.date}}"
+    >
+      <text class="cal-day-num">{{item.day}}</text>
+      <view class="cal-dot" wx:if="{{u.includes(markedDates, item.date)}}"></view>
+    </view>
+  </view>
+
+  <!-- 选中日期的课程 -->
+  <view class="day-section" wx:if="{{daySchedules.length > 0}}">
+    <text class="section-title">{{selectedDate}} 的课程</text>
+    <view class="schedule-card" wx:for="{{daySchedules}}" wx:key="_id">
+      <view class="card-info">
+        <text class="card-time">{{item.startTime}}</text>
+        <text class="card-studio">{{item.studioName}} · {{item.teacherName}}</text>
+        <text class="card-meta">{{item.courseType}} · {{item.durationMin}}分钟</text>
+      </view>
+      <view class="card-actions">
+        <text class="action-record" bindtap="onCreateLesson" data-item="{{item}}">记录</text>
+        <text class="action-edit" bindtap="onEdit" data-id="{{item._id}}">编辑</text>
+        <text class="action-delete" bindtap="onDelete" data-id="{{item._id}}">删除</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 即将到来 7 天 -->
+  <view class="upcoming-section">
+    <text class="section-title">即将到来</text>
+    <block wx:if="{{upcoming.length > 0}}">
+      <view class="schedule-card" wx:for="{{upcoming}}" wx:key="_id">
+        <view class="card-info">
+          <text class="card-date">{{item.date}}</text>
+          <text class="card-time">{{item.startTime}}</text>
+          <text class="card-studio">{{item.studioName}} · {{item.teacherName}}</text>
+          <text class="card-meta">{{item.courseType}} · {{item.durationMin}}分钟</text>
+        </view>
+        <view class="card-actions">
+          <text class="action-record" bindtap="onCreateLesson" data-item="{{item}}">记录</text>
+        </view>
+      </view>
+    </block>
+    <view class="empty-hint" wx:else>
+      <text>未来 7 天暂无课程安排</text>
+    </view>
+  </view>
+</view>

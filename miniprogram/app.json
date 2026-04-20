@@ -14,7 +14,9 @@
     "pages/lesson-add/lesson-add",
     "pages/lesson-detail/lesson-detail",
     "pages/csv-import/csv-import",
-    "pages/stats/stats"
+    "pages/stats/stats",
+    "pages/schedule/schedule",
+    "pages/schedule-form/schedule-form"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",

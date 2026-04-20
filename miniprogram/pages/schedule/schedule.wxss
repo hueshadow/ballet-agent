@@ -1,0 +1,169 @@
+@import '/styles/tokens.wxss';
+
+.page { padding: 32rpx; }
+
+/* 日历头部 */
+.cal-header {
+  display: flex;
+  align-items: center;
+  margin-bottom: 24rpx;
+}
+
+.cal-nav {
+  width: 64rpx;
+  height: 64rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: var(--font-size-xl);
+  color: var(--color-text-secondary);
+}
+
+.cal-title {
+  flex: 1;
+  text-align: center;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+}
+
+.add-btn {
+  padding: 10rpx 24rpx;
+  background: var(--color-accent);
+  border-radius: var(--radius-full);
+}
+
+.add-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-inverse);
+}
+
+/* 星期头 */
+.cal-weekdays {
+  display: flex;
+  margin-bottom: 12rpx;
+}
+
+.cal-wd {
+  flex: 1;
+  text-align: center;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* 日历网格 */
+.cal-grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 32rpx;
+}
+
+.cal-day {
+  width: calc(100% / 7);
+  height: 80rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.cal-empty { visibility: hidden; }
+
+.cal-day-num {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+}
+
+.cal-selected {
+  background: var(--color-accent);
+  border-radius: var(--radius-sm);
+}
+
+.cal-selected .cal-day-num {
+  color: var(--color-text-inverse);
+}
+
+.cal-dot {
+  width: 8rpx;
+  height: 8rpx;
+  background: var(--color-accent);
+  border-radius: 50%;
+  position: absolute;
+  bottom: 8rpx;
+}
+
+.cal-selected .cal-dot {
+  background: var(--color-text-inverse);
+}
+
+/* 课程卡片 */
+.section-title {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  font-weight: var(--font-weight-medium);
+  margin-bottom: 16rpx;
+}
+
+.day-section, .upcoming-section { margin-bottom: 32rpx; }
+
+.schedule-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 24rpx;
+  border: 1rpx solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  margin-bottom: 12rpx;
+}
+
+.card-info { flex: 1; }
+
+.card-date {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-right: 12rpx;
+}
+
+.card-time {
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.card-studio {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-primary);
+  margin-top: 6rpx;
+}
+
+.card-meta {
+  display: block;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  margin-top: 4rpx;
+}
+
+.card-actions {
+  display: flex;
+  flex-direction: column;
+  gap: 12rpx;
+  align-items: flex-end;
+}
+
+.action-record {
+  font-size: var(--font-size-sm);
+  color: var(--color-accent);
+  font-weight: var(--font-weight-medium);
+}
+
+.action-edit { font-size: var(--font-size-sm); color: var(--color-text-secondary); }
+.action-delete { font-size: var(--font-size-sm); color: var(--color-error); }
+
+.empty-hint {
+  text-align: center;
+  padding: 40rpx;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}

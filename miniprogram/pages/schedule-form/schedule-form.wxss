@@ -1,0 +1,27 @@
+@import '/styles/tokens.wxss';
+
+.page { padding: 32rpx; }
+.form { margin-bottom: 48rpx; }
+.form-item { margin-bottom: 28rpx; }
+
+.form-label {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-secondary);
+  margin-bottom: 10rpx;
+}
+
+.form-input {
+  width: 100%;
+  height: 80rpx;
+  padding: 0 24rpx;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background: var(--color-bg-secondary);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+}
+
+.picker-value { line-height: 80rpx; }
