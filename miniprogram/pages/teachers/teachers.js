@@ -29,12 +29,6 @@ Page({
     this.setData({ filterStudioId: studioId })
   },
 
-  get filteredTeachers() {
-    const { teachers, filterStudioId } = this.data
-    if (!filterStudioId) return teachers
-    return teachers.filter(t => t.studioIds && t.studioIds.includes(filterStudioId))
-  },
-
   onAdd() {
     wx.navigateTo({ url: '/pages/teacher-form/teacher-form' })
   },

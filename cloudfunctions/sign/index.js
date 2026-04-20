@@ -1,5 +1,5 @@
-const { createRouter } = require('../common/router')
-const { success, fail, ErrorCode } = require('../common/response')
+const { createRouter } = require('./common/router')
+const { success, fail, ErrorCode } = require('./common/response')
 
 /** 文案库（云端备份，前端也有一份） */
 const QUOTES = [

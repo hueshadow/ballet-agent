@@ -1,5 +1,5 @@
-const { createRouter } = require('../common/router')
-const { success, fail, ErrorCode } = require('../common/response')
+const { createRouter } = require('./common/router')
+const { success, fail, ErrorCode } = require('./common/response')
 
 module.exports.main = createRouter({
   /** 获取课表列表（指定日期范围） */

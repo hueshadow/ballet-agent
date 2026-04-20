@@ -1,5 +1,5 @@
-const { createRouter } = require('../common/router')
-const { success } = require('../common/response')
+const { createRouter } = require('./common/router')
+const { success } = require('./common/response')
 
 /**
  * 示例云函数 - 验证基建可用

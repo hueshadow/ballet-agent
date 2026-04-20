@@ -1,5 +1,5 @@
-const { createRouter } = require('../common/router')
-const { success, fail, ErrorCode } = require('../common/response')
+const { createRouter } = require('./common/router')
+const { success, fail, ErrorCode } = require('./common/response')
 
 /** 10 个预置芭蕾动作 */
 const PRESET_MOVES = [
