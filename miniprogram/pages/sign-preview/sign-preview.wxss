@@ -1,0 +1,101 @@
+@import '/styles/tokens.wxss';
+
+.page {
+  padding: 32rpx;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* 加载 */
+.loading-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 300rpx;
+}
+
+.loading-text {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-medium);
+  color: var(--color-text-primary);
+}
+
+.loading-hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin-top: 16rpx;
+}
+
+/* 预览图 */
+.sign-image {
+  width: 100%;
+  max-width: 540rpx;
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-md);
+}
+
+.source-tag {
+  margin-top: 16rpx;
+}
+
+.source-text {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+  padding: 4rpx 16rpx;
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-full);
+}
+
+/* 操作 */
+.actions {
+  display: flex;
+  gap: 16rpx;
+  margin-top: 40rpx;
+  width: 100%;
+}
+
+.action-btn {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-md);
+}
+
+.action-text {
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+}
+
+.action-btn-primary {
+  flex: 1;
+  height: 88rpx;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-accent);
+  border-radius: var(--radius-md);
+}
+
+.action-text-light {
+  font-size: var(--font-size-base);
+  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-medium);
+}
+
+.save-hint {
+  margin-top: 20rpx;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+/* 隐藏 Canvas */
+.hidden-canvas {
+  position: fixed;
+  left: -9999px;
+  width: 1080px;
+  height: 1920px;
+}

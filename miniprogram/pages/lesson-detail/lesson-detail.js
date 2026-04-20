@@ -56,7 +56,7 @@ Page({
   },
 
   onGenerateSign() {
-    wx.showToast({ title: '日签功能开发中', icon: 'none' })
+    wx.navigateTo({ url: `/pages/sign-preview/sign-preview?lessonId=${this.data.id}` })
   },
 
   onCopyAsTemplate() {

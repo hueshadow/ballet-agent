@@ -18,7 +18,8 @@
     "pages/schedule/schedule",
     "pages/schedule-form/schedule-form",
     "pages/move-detail/move-detail",
-    "pages/move-checkin/move-checkin"
+    "pages/move-checkin/move-checkin",
+    "pages/sign-preview/sign-preview"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",

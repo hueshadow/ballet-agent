@@ -1,0 +1,40 @@
+<view class="page">
+  <!-- 生成中 -->
+  <view class="loading-state" wx:if="{{generating}}">
+    <text class="loading-text">正在生成日签...</text>
+    <text class="loading-hint">{{source === 'canvas_fallback' ? 'Canvas 合成中' : 'AI 生图中，请稍候'}}</text>
+  </view>
+
+  <!-- 预览 -->
+  <block wx:if="{{signImageUrl && !generating}}">
+    <image
+      class="sign-image"
+      src="{{signImageUrl}}"
+      mode="widthFix"
+      bindlongpress="onSaveToAlbum"
+    />
+
+    <view class="source-tag">
+      <text class="source-text">{{source === 'gemini' ? 'AI 生成' : 'Canvas 模板'}}</text>
+    </view>
+
+    <view class="actions">
+      <view class="action-btn" bindtap="onRegenerate">
+        <text class="action-text">再生成一张</text>
+      </view>
+      <view class="action-btn-primary" bindtap="onSaveToAlbum">
+        <text class="action-text-light">保存到相册</text>
+      </view>
+    </view>
+
+    <text class="save-hint">长按图片也可保存</text>
+  </block>
+
+  <!-- Canvas（隐藏，用于兜底合成） -->
+  <canvas
+    wx:if="{{canvasReady}}"
+    type="2d"
+    id="signCanvas"
+    class="hidden-canvas"
+  ></canvas>
+</view>
