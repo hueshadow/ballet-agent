@@ -5,15 +5,10 @@
   padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
 }
 
-.page-header {
-  margin-bottom: 48rpx;
-}
-
 .page-title {
   display: block;
   font-size: var(--font-size-xl);
-  font-weight: 600;
-  color: var(--color-text-primary);
+  font-weight: var(--font-weight-semibold);
   letter-spacing: -0.5rpx;
 }
 
@@ -22,16 +17,63 @@
   font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
   margin-top: 8rpx;
+  margin-bottom: 32rpx;
 }
 
-.empty-state {
+.move-grid {
   display: flex;
-  align-items: center;
-  justify-content: center;
-  height: 400rpx;
+  flex-wrap: wrap;
+  gap: 16rpx;
 }
 
-.empty-text {
+.move-card {
+  width: calc(50% - 8rpx);
+  padding: 28rpx;
+  border: 1rpx solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 200rpx;
+}
+
+.card-top { margin-bottom: 20rpx; }
+
+.move-fr {
+  display: block;
   font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.move-cn {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin-top: 4rpx;
+}
+
+.card-bottom {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.card-stat { display: flex; align-items: baseline; gap: 4rpx; }
+
+.stat-num {
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-primary);
+}
+
+.stat-label {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-tertiary);
+}
+
+.card-days {
+  font-size: var(--font-size-xs);
   color: var(--color-text-tertiary);
 }

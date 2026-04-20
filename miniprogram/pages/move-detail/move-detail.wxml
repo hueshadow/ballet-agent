@@ -1,0 +1,82 @@
+<wxs module="u">
+  module.exports = {
+    starArr: function(n) {
+      var arr = [];
+      for (var i = 0; i < n; i++) arr.push('★');
+      return arr.join('');
+    }
+  }
+</wxs>
+
+<view class="page" wx:if="{{loaded && moveInfo}}">
+  <!-- 动作信息 -->
+  <view class="info-section">
+    <text class="move-fr">{{moveInfo.fr}}</text>
+    <text class="move-cn">{{moveInfo.cn}}</text>
+    <text class="move-pron">发音：{{moveInfo.pron}}</text>
+    <text class="move-desc">{{moveInfo.desc}}</text>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="action-row">
+    <view class="action-btn-primary" bindtap="onNewCheckin">
+      <text class="action-btn-text">新打卡</text>
+    </view>
+    <view class="action-btn-secondary" bindtap="{{compareMode ? 'onExitCompare' : 'onStartCompare'}}">
+      <text class="action-btn-text-dark">{{compareMode ? '退出对比' : '对比'}}</text>
+    </view>
+  </view>
+
+  <!-- 对比模式 -->
+  <view class="compare-section" wx:if="{{compareMode}}">
+    <text class="compare-hint" wx:if="{{!compareA}}">点击下方时间线选择第 1 个视频</text>
+    <text class="compare-hint" wx:elif="{{!compareB}}">点击下方时间线选择第 2 个视频</text>
+
+    <view class="compare-players" wx:if="{{compareA && compareB}}">
+      <view class="compare-player">
+        <video class="compare-video" src="{{compareA.videoFileId}}" controls object-fit="contain"></video>
+        <text class="compare-date">{{compareA.date}}</text>
+      </view>
+      <view class="compare-player">
+        <video class="compare-video" src="{{compareB.videoFileId}}" controls object-fit="contain"></video>
+        <text class="compare-date">{{compareB.date}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 打卡时间线 -->
+  <view class="timeline-section">
+    <text class="section-title">打卡记录 ({{checkins.length}})</text>
+
+    <view class="timeline" wx:if="{{checkins.length > 0}}">
+      <view
+        class="timeline-item {{compareMode ? 'selectable' : ''}}"
+        wx:for="{{checkins}}" wx:key="_id"
+        bindtap="{{compareMode ? 'onSelectForCompare' : 'onPlayVideo'}}"
+        data-item="{{item}}"
+        data-src="{{item.videoFileId}}"
+      >
+        <view class="timeline-thumb-wrap">
+          <image
+            wx:if="{{item.thumbFileId}}"
+            class="timeline-thumb"
+            src="{{item.thumbFileId}}"
+            mode="aspectFill"
+          />
+          <view wx:else class="timeline-thumb-empty">
+            <text class="play-icon">▶</text>
+          </view>
+        </view>
+        <view class="timeline-info">
+          <text class="timeline-date">{{item.date}}</text>
+          <text class="timeline-stars" wx:if="{{item.selfRating}}">{{u.starArr(item.selfRating)}}</text>
+          <text class="timeline-notes" wx:if="{{item.notes}}">{{item.notes}}</text>
+        </view>
+      </view>
+    </view>
+
+    <view class="empty-hint" wx:else>
+      <text>还没有打卡记录，点击上方"新打卡"开始</text>
+    </view>
+  </view>
+</view>

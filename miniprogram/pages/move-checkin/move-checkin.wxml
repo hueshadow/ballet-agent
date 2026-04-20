@@ -1,0 +1,52 @@
+<view class="page">
+  <text class="page-title">动作打卡</text>
+  <text class="page-hint">建议录制 30 秒内的视频</text>
+
+  <!-- 视频选择 -->
+  <view class="video-section">
+    <video
+      wx:if="{{videoTempPath}}"
+      class="video-preview"
+      src="{{videoTempPath}}"
+      controls
+      object-fit="contain"
+    ></video>
+    <view wx:else class="video-placeholder" bindtap="onChooseVideo">
+      <text class="placeholder-icon">🎥</text>
+      <text class="placeholder-text">点击录制或选取视频</text>
+    </view>
+    <view class="change-video" wx:if="{{videoTempPath}}" bindtap="onChooseVideo">
+      <text class="change-text">重新选择</text>
+    </view>
+  </view>
+
+  <!-- 自评 -->
+  <view class="form-item">
+    <text class="form-label">自我评价</text>
+    <view class="star-row">
+      <text
+        wx:for="{{[1,2,3,4,5]}}" wx:key="*this"
+        class="star {{selfRating >= item ? 'star-filled' : ''}}"
+        bindtap="onRating"
+        data-star="{{item}}"
+      >★</text>
+    </view>
+  </view>
+
+  <!-- 笔记 -->
+  <view class="form-item">
+    <text class="form-label">笔记</text>
+    <textarea
+      class="form-textarea"
+      placeholder="今天这个动作的感受..."
+      value="{{notes}}"
+      bindinput="onNotesInput"
+      maxlength="200"
+      auto-height
+    />
+  </view>
+
+  <button class="btn-primary" bindtap="onSave" disabled="{{saving || !videoTempPath}}">
+    保存打卡
+  </button>
+</view>

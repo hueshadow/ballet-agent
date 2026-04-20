@@ -16,7 +16,9 @@
     "pages/csv-import/csv-import",
     "pages/stats/stats",
     "pages/schedule/schedule",
-    "pages/schedule-form/schedule-form"
+    "pages/schedule-form/schedule-form",
+    "pages/move-detail/move-detail",
+    "pages/move-checkin/move-checkin"
   ],
   "window": {
     "navigationBarBackgroundColor": "#ffffff",

@@ -1,10 +1,21 @@
-<view class="page">
-  <view class="page-header">
-    <text class="page-title">动作库</text>
-    <text class="page-subtitle">记录每一次进步</text>
-  </view>
+<view class="page" wx:if="{{loaded}}">
+  <text class="page-title">动作库</text>
+  <text class="page-subtitle">记录每一次进步</text>
 
-  <view class="empty-state">
-    <text class="empty-text">动作打卡开发中</text>
+  <view class="move-grid">
+    <view class="move-card" wx:for="{{moves}}" wx:key="moveKey" bindtap="onViewDetail" data-key="{{item.moveKey}}">
+      <view class="card-top">
+        <text class="move-fr">{{item.fr}}</text>
+        <text class="move-cn">{{item.cn}}</text>
+      </view>
+      <view class="card-bottom">
+        <view class="card-stat">
+          <text class="stat-num">{{item.checkinCount}}</text>
+          <text class="stat-label">次打卡</text>
+        </view>
+        <text class="card-days" wx:if="{{item.daysSinceLast >= 0}}">{{item.daysSinceLast === 0 ? '今天' : item.daysSinceLast + '天前'}}</text>
+        <text class="card-days" wx:else>未打卡</text>
+      </view>
+    </view>
   </view>
 </view>
