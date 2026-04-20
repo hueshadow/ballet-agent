@@ -10,6 +10,7 @@
 # 微信小程序
 miniprogram_npm/
 node_modules/
+project.private.config.json
 
 # 云函数 node_modules
 cloudfunctions/*/node_modules/

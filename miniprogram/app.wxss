@@ -1,0 +1,76 @@
+@import '/styles/tokens.wxss';
+
+/* ---- 全局基础样式 ---- */
+
+page {
+  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
+    'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-primary);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ---- 常用工具类 ---- */
+
+.text-secondary { color: var(--color-text-secondary); }
+.text-tertiary { color: var(--color-text-tertiary); }
+
+.font-sm { font-size: var(--font-size-sm); }
+.font-md { font-size: var(--font-size-md); }
+.font-lg { font-size: var(--font-size-lg); }
+
+.font-medium { font-weight: var(--font-weight-medium); }
+.font-semibold { font-weight: var(--font-weight-semibold); }
+
+/* ---- 卡片 ---- */
+.card {
+  background: var(--color-bg-primary);
+  border-radius: var(--radius-md);
+  padding: var(--spacing-lg);
+  border: 1rpx solid var(--color-border-light);
+}
+
+/* ---- 分割线 ---- */
+.divider {
+  height: 1rpx;
+  background: var(--color-border-light);
+  margin: var(--spacing-md) 0;
+}
+
+/* ---- 按钮 ---- */
+.btn-primary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  background: var(--color-accent);
+  color: var(--color-text-inverse);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  border: none;
+  letter-spacing: 1rpx;
+}
+
+.btn-primary::after {
+  border: none;
+}
+
+.btn-secondary {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 88rpx;
+  background: transparent;
+  color: var(--color-text-primary);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-medium);
+  border-radius: var(--radius-md);
+  border: 2rpx solid var(--color-border);
+}
+
+.btn-secondary::after {
+  border: none;
+}

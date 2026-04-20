@@ -1,0 +1,44 @@
+@import '/styles/tokens.wxss';
+
+.page {
+  padding: 32rpx;
+  padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
+}
+
+.page-header {
+  margin-bottom: 48rpx;
+}
+
+.page-title {
+  display: block;
+  font-size: var(--font-size-xl);
+  font-weight: 600;
+  color: var(--color-text-primary);
+  letter-spacing: -0.5rpx;
+}
+
+.page-subtitle {
+  display: block;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+  margin-top: 8rpx;
+}
+
+.empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 400rpx;
+}
+
+.empty-text {
+  font-size: var(--font-size-base);
+  color: var(--color-text-secondary);
+  margin-bottom: 12rpx;
+}
+
+.empty-hint {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-tertiary);
+}

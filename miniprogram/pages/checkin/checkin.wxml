@@ -1,0 +1,10 @@
+<view class="page">
+  <view class="page-header">
+    <text class="page-title">快速打卡</text>
+    <text class="page-subtitle">记录今天的课</text>
+  </view>
+
+  <view class="empty-state">
+    <text class="empty-text">打卡表单开发中</text>
+  </view>
+</view>

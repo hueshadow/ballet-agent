@@ -1,0 +1,20 @@
+<view class="tab-bar">
+  <block wx:for="{{list}}" wx:key="index">
+    <view
+      class="tab-bar-item {{item.isCenter ? 'center' : ''}} {{selected === index ? 'active' : ''}}"
+      data-index="{{index}}"
+      bindtap="switchTab"
+    >
+      <!-- 中间 + 号按钮 -->
+      <view wx:if="{{item.isCenter}}" class="center-btn">
+        <view class="plus-icon">+</view>
+      </view>
+
+      <!-- 普通 Tab 图标 -->
+      <block wx:else>
+        <view class="icon icon-{{item.iconType}} {{selected === index ? 'icon-active' : ''}}"></view>
+        <text class="tab-text">{{item.text}}</text>
+      </block>
+    </view>
+  </block>
+</view>

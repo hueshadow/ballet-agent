@@ -1,0 +1,10 @@
+<view class="page">
+  <view class="page-header">
+    <text class="page-title">我的</text>
+    <text class="page-subtitle">个人档案与设置</text>
+  </view>
+
+  <view class="empty-state">
+    <text class="empty-text">个人档案开发中</text>
+  </view>
+</view>
