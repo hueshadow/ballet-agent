@@ -108,5 +108,55 @@ module.exports.main = createRouter({
     }
 
     return success({ imported, total: records.length, errors })
+  },
+
+  /** 一键导出全部用户数据为 JSON */
+  async exportAll(event, openid, db) {
+    const COLLECTIONS = [
+      'users', 'studios', 'teachers', 'courseTypes',
+      'lessons', 'moveCheckins', 'dailySigns', 'schedules'
+    ]
+
+    const exportData = {
+      exportedAt: new Date().toISOString(),
+      collections: {}
+    }
+
+    for (const name of COLLECTIONS) {
+      try {
+        const res = await db.collection(name)
+          .where({ _openid: openid })
+          .limit(1000)
+          .get()
+        exportData.collections[name] = res.data
+      } catch (err) {
+        exportData.collections[name] = { error: err.message }
+      }
+    }
+
+    const totalRecords = Object.values(exportData.collections)
+      .reduce((sum, arr) => sum + (Array.isArray(arr) ? arr.length : 0), 0)
+
+    if (totalRecords === 0) {
+      return fail(ErrorCode.NOT_FOUND, '暂无数据可导出')
+    }
+
+    // 上传 JSON 到云存储
+    const cloud = require('wx-server-sdk')
+    const jsonStr = JSON.stringify(exportData, null, 2)
+    const buffer = Buffer.from(jsonStr, 'utf8')
+
+    const uploadRes = await cloud.uploadFile({
+      cloudPath: `exports/${openid}-${Date.now()}.json`,
+      fileContent: buffer
+    })
+
+    return success({
+      fileID: uploadRes.fileID,
+      totalRecords,
+      collections: Object.fromEntries(
+        Object.entries(exportData.collections).map(([k, v]) => [k, Array.isArray(v) ? v.length : 0])
+      )
+    })
   }
 })

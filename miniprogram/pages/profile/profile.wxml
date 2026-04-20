@@ -61,5 +61,9 @@
       <text class="menu-label">导入数据（CSV）</text>
       <text class="menu-arrow">›</text>
     </view>
+    <view class="menu-item" bindtap="onExportJSON">
+      <text class="menu-label">一键导出（JSON）</text>
+      <text class="menu-arrow">›</text>
+    </view>
   </view>
 </view>
