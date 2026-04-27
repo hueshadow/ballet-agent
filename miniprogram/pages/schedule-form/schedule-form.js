@@ -9,7 +9,7 @@ Page({
     isEdit: false,
     date: '',
     startTime: '19:00',
-    durationMin: 60,
+    durationMin: 90,
     studioId: '',
     studioName: '',
     teacherId: '',

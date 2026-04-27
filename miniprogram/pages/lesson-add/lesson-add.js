@@ -2,6 +2,7 @@ const { callFunction } = require('../../utils/cloud')
 
 const MOOD_EMOJIS = ['🥰', '😊', '😌', '😐', '😖', '😭', '💪', '✨']
 const LEVELS = ['初级', '中级', '高级']
+const DURATIONS = [60, 90, 120]
 
 Page({
   data: {
@@ -17,7 +18,9 @@ Page({
     teacherName: '',
     courseType: '',
     level: '',
-    durationMin: 60,
+    durationMin: 90,
+    durations: DURATIONS,
+    durationIndex: 1,
     photos: [],
     notes: '',
     bodyRating: 0,
@@ -99,6 +102,7 @@ Page({
         level: lesson.level || '',
         levelIndex: lesson.level ? LEVELS.indexOf(lesson.level) : -1,
         durationMin: lesson.durationMin,
+        durationIndex: DURATIONS.indexOf(lesson.durationMin) >= 0 ? DURATIONS.indexOf(lesson.durationMin) : -1,
         photos: lesson.photos || [],
         notes: lesson.notes || '',
         bodyRating: lesson.bodyRating || 0,
@@ -145,8 +149,9 @@ Page({
     this.setData({ level: LEVELS[idx], levelIndex: parseInt(idx) })
   },
 
-  onDurationInput(e) {
-    this.setData({ durationMin: parseInt(e.detail.value) || 60 })
+  onDurationChange(e) {
+    const idx = parseInt(e.detail.value)
+    this.setData({ durationMin: DURATIONS[idx], durationIndex: idx })
   },
 
   onNotesInput(e) { this.setData({ notes: e.detail.value }) },

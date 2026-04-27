@@ -55,7 +55,9 @@
   <!-- 时长 -->
   <view class="form-item">
     <text class="form-label">时长（分钟）</text>
-    <input class="form-input" type="number" value="{{durationMin}}" bindinput="onDurationInput" placeholder="60" />
+    <picker bindchange="onDurationChange" range="{{durations}}" value="{{durationIndex}}">
+      <view class="form-input picker-value">{{durationMin}} 分钟</view>
+    </picker>
   </view>
 
   <!-- 照片 -->
