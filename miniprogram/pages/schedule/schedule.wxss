@@ -1,12 +1,17 @@
 @import '/styles/tokens.wxss';
 
-.page { padding: 32rpx; }
+.page {
+  padding: 32rpx 32rpx calc(160rpx + env(safe-area-inset-bottom));
+  background: var(--color-bg-primary);
+  min-height: 100vh;
+}
 
-/* 日历头部 */
+/* ===== 日历头部 ===== */
 .cal-header {
   display: flex;
   align-items: center;
   margin-bottom: 24rpx;
+  padding: 8rpx 0;
 }
 
 .cal-nav {
@@ -16,50 +21,64 @@
   align-items: center;
   justify-content: center;
   font-size: var(--font-size-xl);
-  color: var(--color-text-secondary);
+  color: var(--color-gold);
+  font-family: var(--font-family-serif);
 }
 
 .cal-title {
   flex: 1;
   text-align: center;
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
+  color: var(--color-text-primary);
+  letter-spacing: var(--tracking-wide);
 }
 
 .add-btn {
-  padding: 10rpx 24rpx;
-  background: var(--color-accent);
-  border-radius: var(--radius-full);
+  padding: 12rpx 28rpx;
+  background: var(--gradient-gold);
+  border-radius: var(--radius-pill);
+  box-shadow: var(--shadow-gold);
 }
 
 .add-text {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-inverse);
+  font-size: var(--font-size-xs);
+  color: var(--color-bg-noir);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
 }
 
-/* 星期头 */
+/* ===== 星期头 ===== */
 .cal-weekdays {
   display: flex;
   margin-bottom: 12rpx;
+  padding: 16rpx 0;
+  border-top: 1rpx solid var(--color-border-light);
+  border-bottom: 1rpx solid var(--color-border-light);
 }
 
 .cal-wd {
   flex: 1;
   text-align: center;
   font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
+  color: var(--color-gold-deep);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
 }
 
-/* 日历网格 */
+/* ===== 日历网格 ===== */
 .cal-grid {
   display: flex;
   flex-wrap: wrap;
-  margin-bottom: 32rpx;
+  margin-bottom: 40rpx;
+  padding: 8rpx 0;
 }
 
 .cal-day {
   width: calc(100% / 7);
-  height: 80rpx;
+  height: 88rpx;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -70,100 +89,143 @@
 .cal-empty { visibility: hidden; }
 
 .cal-day-num {
-  font-size: var(--font-size-sm);
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-light);
   color: var(--color-text-primary);
 }
 
 .cal-selected {
-  background: var(--color-accent);
+  background: var(--color-bg-noir);
   border-radius: var(--radius-sm);
+  box-shadow: inset 0 0 0 1rpx var(--color-gold);
 }
 
 .cal-selected .cal-day-num {
-  color: var(--color-text-inverse);
+  color: var(--color-gold-light);
 }
 
 .cal-dot {
-  width: 8rpx;
-  height: 8rpx;
-  background: var(--color-accent);
-  border-radius: 50%;
+  width: 6rpx;
+  height: 6rpx;
+  background: var(--color-gold);
+  transform: rotate(45deg);
   position: absolute;
   bottom: 8rpx;
 }
 
 .cal-selected .cal-dot {
-  background: var(--color-text-inverse);
+  background: var(--color-gold-light);
 }
 
-/* 课程卡片 */
+/* ===== 段落标题 ===== */
 .section-title {
   display: block;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  font-size: 22rpx;
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-gold-deep);
+  text-transform: uppercase;
   font-weight: var(--font-weight-medium);
-  margin-bottom: 16rpx;
+  margin-bottom: 20rpx;
 }
 
-.day-section, .upcoming-section { margin-bottom: 32rpx; }
+.day-section, .upcoming-section { margin-bottom: 40rpx; }
 
+/* ===== 课程卡片 ===== */
 .schedule-card {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 24rpx;
+  padding: 28rpx 32rpx;
+  background: var(--color-bg-paper);
   border: 1rpx solid var(--color-border-light);
   border-radius: var(--radius-md);
-  margin-bottom: 12rpx;
+  margin-bottom: 16rpx;
+  position: relative;
+  box-shadow: var(--shadow-sm);
+}
+.schedule-card::before {
+  content: '';
+  position: absolute;
+  top: 28rpx;
+  bottom: 28rpx;
+  left: 0;
+  width: 3rpx;
+  background: var(--gradient-gold);
 }
 
-.card-info { flex: 1; }
+.card-info { flex: 1; min-width: 0; }
 
 .card-date {
+  font-family: var(--font-family-serif);
+  font-style: italic;
   font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
+  color: var(--color-gold-deep);
   margin-right: 12rpx;
+  letter-spacing: var(--tracking-wide);
 }
 
 .card-time {
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-normal);
   color: var(--color-text-primary);
+  letter-spacing: var(--tracking-wide);
 }
 
 .card-studio {
   display: block;
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
-  margin-top: 6rpx;
+  margin-top: 8rpx;
+  letter-spacing: var(--tracking-wide);
 }
 
 .card-meta {
   display: block;
   font-size: var(--font-size-xs);
   color: var(--color-text-tertiary);
-  margin-top: 4rpx;
+  margin-top: 6rpx;
+  letter-spacing: var(--tracking-wide);
 }
 
 .card-actions {
   display: flex;
   flex-direction: column;
-  gap: 12rpx;
+  gap: 14rpx;
   align-items: flex-end;
 }
 
 .action-record {
-  font-size: var(--font-size-sm);
-  color: var(--color-accent);
-  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-xs);
+  color: var(--color-gold-deep);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
 }
 
-.action-edit { font-size: var(--font-size-sm); color: var(--color-text-secondary); }
-.action-delete { font-size: var(--font-size-sm); color: var(--color-error); }
+.action-edit {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-secondary);
+  letter-spacing: var(--tracking-wide);
+}
 
+.action-delete {
+  font-size: var(--font-size-xs);
+  color: var(--color-error);
+  letter-spacing: var(--tracking-wide);
+}
+
+/* ===== 空提示 ===== */
 .empty-hint {
   text-align: center;
-  padding: 40rpx;
+  padding: 48rpx;
+  font-family: var(--font-family-serif);
+  font-style: italic;
   font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
+  letter-spacing: var(--tracking-wide);
+  border: 1rpx dashed var(--color-border-gold);
+  border-radius: var(--radius-md);
+  background: rgba(212, 181, 127, 0.03);
 }

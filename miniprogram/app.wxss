@@ -1,76 +1,212 @@
 @import '/styles/tokens.wxss';
 
-/* ---- 全局基础样式 ---- */
+/* ============================================
+   全局基础样式 · Art Deco / Elegant Modern
+   ============================================ */
 
 page {
-  font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue',
-    'PingFang SC', 'Microsoft YaHei', sans-serif;
+  font-family: var(--font-family-sans);
   font-size: var(--font-size-base);
   color: var(--color-text-primary);
   background-color: var(--color-bg-primary);
-  line-height: 1.5;
+  line-height: 1.55;
   -webkit-font-smoothing: antialiased;
+  -webkit-text-size-adjust: 100%;
 }
 
-/* ---- 常用工具类 ---- */
-
+/* ---- 工具类 ---- */
 .text-secondary { color: var(--color-text-secondary); }
-.text-tertiary { color: var(--color-text-tertiary); }
+.text-tertiary  { color: var(--color-text-tertiary); }
+.text-muted     { color: var(--color-text-muted); }
+.text-gold      { color: var(--color-gold); }
 
-.font-sm { font-size: var(--font-size-sm); }
-.font-md { font-size: var(--font-size-md); }
-.font-lg { font-size: var(--font-size-lg); }
+.font-sans      { font-family: var(--font-family-sans); }
+.font-serif     { font-family: var(--font-family-serif); }
+.font-display   { font-family: var(--font-family-display); font-weight: var(--font-weight-light); }
 
-.font-medium { font-weight: var(--font-weight-medium); }
-.font-semibold { font-weight: var(--font-weight-semibold); }
+.font-sm        { font-size: var(--font-size-sm); }
+.font-md        { font-size: var(--font-size-md); }
+.font-lg        { font-size: var(--font-size-lg); }
+.font-xl        { font-size: var(--font-size-xl); }
 
-/* ---- 卡片 ---- */
+.font-medium    { font-weight: var(--font-weight-medium); }
+.font-semibold  { font-weight: var(--font-weight-semibold); }
+
+.tracking-wide  { letter-spacing: var(--tracking-wide); }
+.tracking-wider { letter-spacing: var(--tracking-wider); }
+.uppercase      { text-transform: uppercase; }
+
+/* ---- 卡片（米色纸感 + 金色细描边） ---- */
 .card {
-  background: var(--color-bg-primary);
+  position: relative;
+  background: var(--color-bg-paper);
   border-radius: var(--radius-md);
   padding: var(--spacing-lg);
   border: 1rpx solid var(--color-border-light);
+  box-shadow: var(--shadow-sm);
 }
 
-/* ---- 分割线 ---- */
+.card-bordered {
+  background: var(--color-bg-paper);
+  border-radius: var(--radius-sm);
+  padding: var(--spacing-lg);
+  border: 1rpx solid var(--color-border-gold);
+}
+
+/* ---- 分割线：Art Deco 双金线 ---- */
 .divider {
   height: 1rpx;
   background: var(--color-border-light);
   margin: var(--spacing-md) 0;
 }
 
-/* ---- 按钮 ---- */
-.btn-primary {
+.divider-gold {
+  position: relative;
+  height: 6rpx;
+  margin: var(--spacing-lg) 0;
+}
+.divider-gold::before,
+.divider-gold::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1rpx;
+  background: var(--gradient-gold-line);
+}
+.divider-gold::before { top: 0; }
+.divider-gold::after  { bottom: 0; }
+
+/* ---- 居中带钻石的金色装饰条 ---- */
+.ornament {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 88rpx;
-  background: var(--color-accent);
-  color: var(--color-text-inverse);
+  gap: 16rpx;
+  margin: var(--spacing-md) 0;
+}
+.ornament::before,
+.ornament::after {
+  content: '';
+  flex: 1;
+  height: 1rpx;
+  background: var(--gradient-gold-line);
+  max-width: 120rpx;
+}
+.ornament-diamond {
+  width: 12rpx;
+  height: 12rpx;
+  background: var(--gradient-gold);
+  transform: rotate(45deg);
+}
+
+/* ---- 章节小标题（小字符 · 宽字距 · 金色） ---- */
+.eyebrow {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-gold-deep);
+  text-transform: uppercase;
+  font-weight: var(--font-weight-medium);
+}
+
+/* ---- 主按钮（墨蓝底 + 香槟金描边光） ---- */
+.btn-primary {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 92rpx;
+  background: var(--color-bg-noir);
+  color: var(--color-gold-light);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
-  border-radius: var(--radius-md);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
   border: none;
-  letter-spacing: 1rpx;
+  box-shadow: var(--shadow-md), inset 0 0 0 1rpx var(--color-gold-deep);
 }
+.btn-primary::after { border: none; }
 
-.btn-primary::after {
+/* ---- 金色按钮（重要 CTA） ---- */
+.btn-gold {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 92rpx;
+  background: var(--gradient-gold);
+  color: var(--color-bg-noir);
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+  border-radius: var(--radius-sm);
   border: none;
+  box-shadow: var(--shadow-gold);
 }
+.btn-gold::after { border: none; }
 
+/* ---- 次按钮（金色细线描边） ---- */
 .btn-secondary {
   display: flex;
   align-items: center;
   justify-content: center;
-  height: 88rpx;
+  height: 92rpx;
   background: transparent;
   color: var(--color-text-primary);
   font-size: var(--font-size-base);
   font-weight: var(--font-weight-medium);
-  border-radius: var(--radius-md);
-  border: 2rpx solid var(--color-border);
+  letter-spacing: var(--tracking-wide);
+  border-radius: var(--radius-sm);
+  border: 1rpx solid var(--color-border-gold);
+}
+.btn-secondary::after { border: none; }
+
+/* ---- 标签 / 胶囊 ---- */
+.chip {
+  display: inline-flex;
+  align-items: center;
+  height: 48rpx;
+  padding: 0 24rpx;
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-wide);
+  color: var(--color-text-secondary);
+  background: transparent;
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-pill);
+}
+.chip-gold {
+  color: var(--color-gold-deep);
+  border-color: var(--color-gold);
+  background: rgba(212, 181, 127, 0.08);
 }
 
-.btn-secondary::after {
-  border: none;
+/* ---- 阶梯角饰（Ziggurat corner，Art Deco 经典） ---- */
+.deco-corners {
+  position: relative;
 }
+.deco-corners::before,
+.deco-corners::after {
+  content: '';
+  position: absolute;
+  width: 40rpx;
+  height: 40rpx;
+  border: 1rpx solid var(--color-gold);
+  pointer-events: none;
+}
+.deco-corners::before {
+  top: 12rpx;
+  left: 12rpx;
+  border-right: none;
+  border-bottom: none;
+}
+.deco-corners::after {
+  bottom: 12rpx;
+  right: 12rpx;
+  border-left: none;
+  border-top: none;
+}
+
+/* ---- 隐藏滚动条美化 ---- */
+::-webkit-scrollbar { display: none; }

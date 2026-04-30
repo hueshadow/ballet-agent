@@ -4,6 +4,8 @@
       class="tab-bar-item {{item.isCenter ? 'center' : ''}} {{selected === index ? 'active' : ''}}"
       data-index="{{index}}"
       bindtap="switchTab"
+      hover-class="tab-hover"
+      hover-stay-time="50"
     >
       <!-- 中间 + 号按钮 -->
       <view wx:if="{{item.isCenter}}" class="center-btn">

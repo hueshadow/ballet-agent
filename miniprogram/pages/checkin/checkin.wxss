@@ -1,26 +1,43 @@
 @import '/styles/tokens.wxss';
 
 .page {
-  padding: 32rpx;
+  padding: 32rpx 32rpx calc(160rpx + env(safe-area-inset-bottom));
+  background: var(--color-bg-primary);
+  min-height: 100vh;
 }
 
 .page-header {
   margin-bottom: 48rpx;
+  text-align: center;
+  padding-top: 32rpx;
+}
+
+.page-header::before {
+  content: '✦';
+  display: block;
+  font-size: 28rpx;
+  color: var(--color-gold);
+  margin-bottom: 16rpx;
 }
 
 .page-title {
   display: block;
-  font-size: var(--font-size-xl);
-  font-weight: 600;
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-2xl);
+  font-weight: var(--font-weight-light);
   color: var(--color-text-primary);
-  letter-spacing: -0.5rpx;
+  letter-spacing: var(--tracking-wide);
+  line-height: 1.2;
 }
 
 .page-subtitle {
   display: block;
+  margin-top: 12rpx;
+  font-family: var(--font-family-serif);
+  font-style: italic;
   font-size: var(--font-size-sm);
-  color: var(--color-text-tertiary);
-  margin-top: 8rpx;
+  color: var(--color-gold-deep);
+  letter-spacing: var(--tracking-wide);
 }
 
 .empty-state {
@@ -28,9 +45,15 @@
   align-items: center;
   justify-content: center;
   height: 400rpx;
+  border: 1rpx dashed var(--color-gold);
+  border-radius: var(--radius-md);
+  background: rgba(212, 181, 127, 0.04);
 }
 
 .empty-text {
-  font-size: var(--font-size-base);
-  color: var(--color-text-tertiary);
+  font-family: var(--font-family-serif);
+  font-style: italic;
+  font-size: var(--font-size-sm);
+  color: var(--color-gold-deep);
+  letter-spacing: var(--tracking-wide);
 }

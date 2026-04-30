@@ -1,26 +1,59 @@
 @import '/styles/tokens.wxss';
 
-.page { padding: 32rpx; }
+.page {
+  padding: 32rpx 32rpx calc(120rpx + env(safe-area-inset-bottom));
+  background: var(--color-bg-primary);
+  min-height: 100vh;
+}
 
+/* ===== 章节 ===== */
 .chart-section {
-  margin-bottom: 48rpx;
+  position: relative;
+  margin-bottom: 56rpx;
+  padding: 32rpx 32rpx 36rpx;
+  background: var(--color-bg-paper);
+  border: 1rpx solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+}
+.chart-section::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 24rpx;
+  right: 24rpx;
+  height: 1rpx;
+  background: var(--gradient-gold-line);
 }
 
 .chart-title {
   display: block;
-  font-size: var(--font-size-base);
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-lg);
+  font-weight: var(--font-weight-light);
   color: var(--color-text-primary);
+  letter-spacing: var(--tracking-wide);
+  margin-bottom: 8rpx;
+}
+.chart-title::after {
+  content: '';
+  display: block;
+  width: 48rpx;
+  height: 2rpx;
+  background: var(--gradient-gold);
+  margin-top: 16rpx;
   margin-bottom: 24rpx;
 }
 
-/* 竖向柱状图（月度趋势） */
+/* ===== 竖向柱状图（月度趋势） ===== */
 .bar-chart {
   display: flex;
   align-items: flex-end;
-  height: 300rpx;
-  gap: 4rpx;
-  padding-top: 40rpx;
+  height: 320rpx;
+  gap: 6rpx;
+  padding-top: 48rpx;
+  border-bottom: 1rpx solid var(--color-border-light);
+  position: relative;
 }
 
 .bar-col {
@@ -32,9 +65,11 @@
 }
 
 .bar-value {
+  font-family: var(--font-family-serif);
   font-size: 18rpx;
-  color: var(--color-text-tertiary);
-  margin-bottom: 4rpx;
+  color: var(--color-gold-deep);
+  margin-bottom: 6rpx;
+  letter-spacing: var(--tracking-wide);
 }
 
 .bar-fill-wrap {
@@ -46,23 +81,28 @@
 
 .bar-fill {
   width: 100%;
-  background: var(--color-accent);
-  border-radius: 4rpx 4rpx 0 0;
+  background: linear-gradient(180deg,
+    var(--color-gold-light) 0%,
+    var(--color-gold) 60%,
+    var(--color-gold-deep) 100%);
+  border-radius: 2rpx 2rpx 0 0;
   min-height: 4rpx;
-  transition: height 0.5s var(--ease-out);
+  transition: height 0.6s var(--ease-elegant);
+  box-shadow: 0 -2rpx 8rpx rgba(212, 181, 127, 0.3);
 }
 
 .bar-label {
   font-size: 18rpx;
   color: var(--color-text-tertiary);
-  margin-top: 8rpx;
+  margin-top: 12rpx;
+  letter-spacing: var(--tracking-wide);
 }
 
-/* 横向条形图（分布） */
+/* ===== 横向条形图 ===== */
 .h-bar-list {
   display: flex;
   flex-direction: column;
-  gap: 16rpx;
+  gap: 24rpx;
 }
 
 .h-bar-item {
@@ -74,6 +114,7 @@
 .h-bar-name {
   font-size: var(--font-size-sm);
   color: var(--color-text-primary);
+  letter-spacing: var(--tracking-wide);
   width: 140rpx;
   flex-shrink: 0;
   overflow: hidden;
@@ -83,28 +124,32 @@
 
 .h-bar-track {
   flex: 1;
-  height: 20rpx;
+  height: 14rpx;
   background: var(--color-bg-secondary);
-  border-radius: var(--radius-full);
+  border-radius: var(--radius-pill);
   overflow: hidden;
+  position: relative;
 }
 
 .h-bar-fill {
   height: 100%;
-  background: var(--color-accent);
-  border-radius: var(--radius-full);
-  transition: width 0.5s var(--ease-out);
+  background: var(--gradient-gold);
+  border-radius: var(--radius-pill);
+  transition: width 0.6s var(--ease-elegant);
+  box-shadow: 0 0 12rpx rgba(212, 181, 127, 0.5);
 }
 
 .h-bar-count {
+  font-family: var(--font-family-serif);
   font-size: var(--font-size-xs);
-  color: var(--color-text-tertiary);
-  width: 140rpx;
+  color: var(--color-gold-deep);
+  letter-spacing: var(--tracking-wide);
+  width: 160rpx;
   flex-shrink: 0;
   text-align: right;
 }
 
-/* 空态 */
+/* ===== 空态 ===== */
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -113,12 +158,17 @@
 }
 
 .empty-text {
-  font-size: var(--font-size-base);
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-md);
   color: var(--color-text-secondary);
+  letter-spacing: var(--tracking-wide);
 }
 
 .empty-hint {
+  font-family: var(--font-family-serif);
+  font-style: italic;
   font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
-  margin-top: 12rpx;
+  margin-top: 16rpx;
+  letter-spacing: var(--tracking-wide);
 }

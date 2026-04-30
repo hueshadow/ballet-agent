@@ -149,7 +149,8 @@ module.exports.main = createRouter({
         weekCount: 0, weekGoal: 3,
         daysSinceLast: -1,
         monthly: [], studioDist: [], teacherDist: [], typeDist: [],
-        milestones: []
+        milestones: [],
+        heatmap: [], currentStreak: 0, longestStreak: 0
       })
     }
 
@@ -167,8 +168,12 @@ module.exports.main = createRouter({
 
     // 分布统计
     const studioMap = {}, teacherMap = {}, typeMap = {}, monthlyMap = {}
+    const dateCountMap = {}
 
     lessons.forEach(l => {
+      // 热力图日期计数
+      if (l.date) dateCountMap[l.date] = (dateCountMap[l.date] || 0) + 1
+
       const hours = (l.durationMin || 60) / 60
       totalHours += hours
 
@@ -221,6 +226,50 @@ module.exports.main = createRouter({
       return { target, achieved: false, current: total }
     })
 
+    // 热力图（过去 84 天，对齐到周一）
+    const heatmapStart = new Date(now)
+    heatmapStart.setDate(now.getDate() - 83)
+    const startDow = heatmapStart.getDay() || 7
+    heatmapStart.setDate(heatmapStart.getDate() - (startDow - 1))
+
+    const heatmap = []
+    const cursor = new Date(heatmapStart)
+    while (cursor <= now) {
+      const ds = cursor.toISOString().slice(0, 10)
+      heatmap.push({ date: ds, count: dateCountMap[ds] || 0 })
+      cursor.setDate(cursor.getDate() + 1)
+    }
+
+    // 连续天数
+    let currentStreak = 0
+    const checkDate = new Date(now)
+    let streakStarted = false
+    for (let i = 0; i <= 400; i++) {
+      const ds = checkDate.toISOString().slice(0, 10)
+      if (dateCountMap[ds]) {
+        currentStreak++
+        streakStarted = true
+      } else if (streakStarted || i > 0) {
+        break
+      }
+      checkDate.setDate(checkDate.getDate() - 1)
+    }
+
+    const uniqueDates = Object.keys(dateCountMap).sort()
+    let longestStreak = 0, tempStreak = 1
+    for (let i = 1; i < uniqueDates.length; i++) {
+      const prev = new Date(uniqueDates[i - 1])
+      const curr = new Date(uniqueDates[i])
+      if (Math.round((curr - prev) / 86400000) === 1) {
+        tempStreak++
+      } else {
+        longestStreak = Math.max(longestStreak, tempStreak)
+        tempStreak = 1
+      }
+    }
+    longestStreak = Math.max(longestStreak, tempStreak)
+    if (uniqueDates.length === 0) longestStreak = 0
+
     return success({
       totalCount: total,
       totalHours: Math.round(totalHours * 10) / 10,
@@ -232,7 +281,10 @@ module.exports.main = createRouter({
       studioDist: toSorted(studioMap),
       teacherDist,
       typeDist: toSorted(typeMap),
-      milestones
+      milestones,
+      heatmap,
+      currentStreak,
+      longestStreak
     })
   },
 

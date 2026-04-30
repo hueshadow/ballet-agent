@@ -4,6 +4,11 @@
       if (!goal) return 0;
       var p = Math.round((current / goal) * 100);
       return p > 100 ? 100 : p;
+    },
+    heatColor: function(count) {
+      if (!count || count === 0) return '';
+      if (count === 1) return 'heat-1';
+      return 'heat-2';
     }
   }
 </wxs>
@@ -11,18 +16,38 @@
 <view class="page" wx:if="{{loaded}}">
   <!-- 有数据 -->
   <block wx:if="{{stats && stats.totalCount > 0}}">
+
+    <!-- 头部装饰带 -->
+    <view class="hero">
+      <view class="hero-eyebrow">
+        <view class="hero-line"></view>
+        <text class="hero-eyebrow-text">BALLET · ATELIER</text>
+        <view class="hero-line"></view>
+      </view>
+      <text class="hero-title">芭蕾管家</text>
+      <text class="hero-sub">Élégance · Discipline · Grâce</text>
+    </view>
+
     <!-- 核心指标 -->
     <view class="stat-cards">
       <view class="stat-card">
-        <text class="stat-number">{{stats.monthCount}}</text>
-        <text class="stat-unit">节</text>
-        <text class="stat-label">本月课时</text>
+        <view class="stat-corner stat-corner-tl"></view>
+        <view class="stat-corner stat-corner-br"></view>
+        <text class="stat-eyebrow">本月课时</text>
+        <view class="stat-num-row">
+          <text class="stat-number">{{stats.monthCount}}</text>
+          <text class="stat-unit">节</text>
+        </view>
         <text class="stat-sub">{{stats.monthHours}} 小时</text>
       </view>
       <view class="stat-card">
-        <text class="stat-number">{{stats.totalCount}}</text>
-        <text class="stat-unit">节</text>
-        <text class="stat-label">累计课时</text>
+        <view class="stat-corner stat-corner-tl"></view>
+        <view class="stat-corner stat-corner-br"></view>
+        <text class="stat-eyebrow">累计课时</text>
+        <view class="stat-num-row">
+          <text class="stat-number">{{stats.totalCount}}</text>
+          <text class="stat-unit">节</text>
+        </view>
         <text class="stat-sub">{{stats.totalHours}} 小时</text>
       </view>
     </view>
@@ -38,16 +63,75 @@
       </view>
     </view>
 
+    <!-- 习惯热力图 -->
+    <view class="heatmap-section" wx:if="{{heatmapWeeks.length > 0}}">
+      <view class="ornament">
+        <view class="ornament-diamond"></view>
+        <text class="eyebrow">PRACTICE · 练习热力</text>
+        <view class="ornament-diamond"></view>
+      </view>
+      <view class="streak-row">
+        <view class="streak-item">
+          <text class="streak-num">{{stats.currentStreak}}</text>
+          <text class="streak-label">当前连续</text>
+        </view>
+        <view class="streak-divider"></view>
+        <view class="streak-item">
+          <text class="streak-num">{{stats.longestStreak}}</text>
+          <text class="streak-label">最长连续</text>
+        </view>
+      </view>
+      <view class="heatmap-grid">
+        <view class="heatmap-week" wx:for="{{heatmapWeeks}}" wx:key="index">
+          <view
+            class="heatmap-cell {{u.heatColor(day.count)}}"
+            wx:for="{{item}}"
+            wx:for-item="day"
+            wx:key="date"
+          ></view>
+        </view>
+      </view>
+      <view class="heatmap-legend">
+        <text class="legend-text">少</text>
+        <view class="heatmap-cell legend-cell"></view>
+        <view class="heatmap-cell legend-cell heat-1"></view>
+        <view class="heatmap-cell legend-cell heat-2"></view>
+        <text class="legend-text">多</text>
+      </view>
+    </view>
+
     <!-- 最近课时 -->
     <view class="last-lesson">
-      <text class="last-text" wx:if="{{stats.daysSinceLast === 0}}">今天刚上了课</text>
-      <text class="last-text" wx:elif="{{stats.daysSinceLast === 1}}">昨天上了课</text>
-      <text class="last-text" wx:else>距上次上课 {{stats.daysSinceLast}} 天</text>
+      <text class="last-text" wx:if="{{stats.daysSinceLast === 0}}">— 今天刚上了课 —</text>
+      <text class="last-text" wx:elif="{{stats.daysSinceLast === 1}}">— 昨天上了课 —</text>
+      <text class="last-text" wx:else>— 距上次上课 {{stats.daysSinceLast}} 天 —</text>
+    </view>
+
+    <!-- 每日术语卡片 -->
+    <view class="term-card" wx:if="{{todayTerm}}">
+      <view class="term-card-inner">
+        <view class="stat-corner stat-corner-tl"></view>
+        <view class="stat-corner stat-corner-br"></view>
+        <text class="term-category">{{todayTerm.categoryLabel}}</text>
+        <text class="term-fr">{{todayTerm.fr}}</text>
+        <text class="term-cn">{{todayTerm.cn}}</text>
+        <text class="term-pron">[ {{todayTerm.pron}} ]</text>
+        <view class="term-divider"></view>
+        <text class="term-explain">{{todayTerm.explanation}}</text>
+        <view class="term-action" bindtap="onMarkTermLearned">
+          <text class="term-action-text" wx:if="{{!termLearned}}">✦ 标记已学</text>
+          <text class="term-action-text term-learned" wx:else>✦ 已学习</text>
+        </view>
+      </view>
     </view>
 
     <!-- 成长里程碑 -->
     <view class="milestone-section">
-      <text class="section-title">成长里程碑</text>
+      <view class="ornament">
+        <view class="ornament-diamond"></view>
+        <text class="eyebrow">MILESTONES · 成长里程</text>
+        <view class="ornament-diamond"></view>
+      </view>
       <view class="milestone-list">
         <view class="milestone {{item.achieved ? 'milestone-done' : ''}}" wx:for="{{stats.milestones}}" wx:key="target">
           <text class="milestone-num">{{item.target}}</text>
@@ -59,15 +143,28 @@
 
     <!-- 查看详细统计 -->
     <view class="stats-link" bindtap="onViewStats">
-      <text class="stats-link-text">查看详细统计 ›</text>
+      <text class="stats-link-text">查看详细统计</text>
+      <text class="stats-link-arrow">→</text>
     </view>
   </block>
 
   <!-- 空态 -->
   <block wx:else>
     <view class="empty-state">
+      <view class="empty-fan">
+        <view class="fan-ray"></view>
+        <view class="fan-ray"></view>
+        <view class="fan-ray"></view>
+        <view class="fan-ray"></view>
+        <view class="fan-ray"></view>
+      </view>
+      <view class="ornament">
+        <view class="ornament-diamond"></view>
+        <text class="eyebrow">MAISON DE BALLET</text>
+        <view class="ornament-diamond"></view>
+      </view>
       <text class="empty-title">芭蕾管家</text>
-      <text class="empty-text">记录每一节课，见证你的成长</text>
+      <text class="empty-text">记录每一节课 · 见证你的成长</text>
       <view class="empty-btn" bindtap="onAddLesson">
         <text class="empty-btn-text">记录第一节课</text>
       </view>

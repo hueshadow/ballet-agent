@@ -1,95 +1,156 @@
 @import '/styles/tokens.wxss';
 
 .page {
-  padding: 32rpx;
-  padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
+  padding: 32rpx 32rpx calc(160rpx + env(safe-area-inset-bottom));
+  background: var(--color-bg-primary);
+  min-height: 100vh;
 }
 
-/* 搜索栏 */
+/* ===== 搜索栏 ===== */
 .search-row {
   display: flex;
   align-items: center;
   gap: 16rpx;
-  margin-bottom: 24rpx;
+  margin-bottom: 32rpx;
 }
 
 .search-input {
   flex: 1;
-  height: 72rpx;
-  padding: 0 24rpx;
+  height: 80rpx;
+  padding: 0 28rpx;
   font-size: var(--font-size-sm);
-  background: var(--color-bg-secondary);
-  border-radius: var(--radius-full);
+  color: var(--color-text-primary);
+  background: var(--color-bg-paper);
+  border: 1rpx solid var(--color-border);
+  border-radius: var(--radius-pill);
+  letter-spacing: var(--tracking-wide);
 }
 
 .filter-toggle {
-  width: 72rpx;
-  height: 72rpx;
+  width: 80rpx;
+  height: 80rpx;
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-bg-secondary);
+  background: var(--color-bg-paper);
+  border: 1rpx solid var(--color-gold);
   border-radius: 50%;
+  box-shadow: var(--shadow-sm);
 }
 
-.filter-icon { font-size: var(--font-size-lg); }
+.filter-icon {
+  font-size: var(--font-size-md);
+  color: var(--color-gold-deep);
+}
 
-/* 筛选面板 */
+/* ===== 筛选面板 ===== */
 .filter-panel {
   display: flex;
   flex-wrap: wrap;
   gap: 12rpx;
-  margin-bottom: 24rpx;
+  margin-bottom: 32rpx;
+  padding: 20rpx 24rpx;
+  background: var(--color-bg-paper);
+  border: 1rpx solid var(--color-border-light);
+  border-radius: var(--radius-md);
 }
 
 .filter-chip {
-  padding: 10rpx 24rpx;
-  font-size: var(--font-size-sm);
+  padding: 12rpx 24rpx;
+  font-size: var(--font-size-xs);
+  letter-spacing: var(--tracking-wide);
   color: var(--color-text-secondary);
-  border: 1rpx solid var(--color-border);
-  border-radius: var(--radius-full);
+  background: transparent;
+  border: 1rpx solid var(--color-border-gold);
+  border-radius: var(--radius-pill);
 }
 
 .clear-chip {
   color: var(--color-error);
   border-color: var(--color-error);
+  background: rgba(176, 72, 72, 0.04);
 }
 
-/* 列表项 */
+/* ===== 列表 ===== */
+.lesson-list {
+  background: var(--color-bg-paper);
+  border: 1rpx solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  padding: 0 24rpx;
+  box-shadow: var(--shadow-sm);
+  position: relative;
+}
+.lesson-list::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 24rpx;
+  right: 24rpx;
+  height: 1rpx;
+  background: var(--gradient-gold-line);
+}
+
 .lesson-item {
   display: flex;
   align-items: center;
-  padding: 24rpx 0;
-  border-bottom: 1rpx solid var(--color-border-light);
+  padding: 28rpx 0;
+  position: relative;
+}
+.lesson-item + .lesson-item {
+  border-top: 1rpx solid var(--color-border-light);
 }
 
-.lesson-left { margin-right: 20rpx; flex-shrink: 0; }
+.lesson-left {
+  margin-right: 24rpx;
+  flex-shrink: 0;
+  position: relative;
+}
 
 .lesson-thumb {
-  width: 96rpx;
-  height: 96rpx;
+  width: 104rpx;
+  height: 104rpx;
   border-radius: var(--radius-sm);
+  border: 1rpx solid var(--color-gold-soft);
 }
 
 .lesson-thumb-empty {
-  width: 96rpx;
-  height: 96rpx;
+  width: 104rpx;
+  height: 104rpx;
   border-radius: var(--radius-sm);
-  background: var(--color-bg-secondary);
+  background:
+    linear-gradient(135deg, var(--color-bg-secondary) 0%, var(--color-gold-soft) 100%);
+  border: 1rpx solid var(--color-gold-soft);
+  position: relative;
+}
+.lesson-thumb-empty::after {
+  content: '✦';
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24rpx;
+  color: var(--color-gold);
 }
 
-.lesson-center { flex: 1; min-width: 0; }
+.lesson-center {
+  flex: 1;
+  min-width: 0;
+}
 
 .lesson-top-row {
   display: flex;
   align-items: center;
-  gap: 8rpx;
-  margin-bottom: 6rpx;
+  gap: 12rpx;
+  margin-bottom: 8rpx;
 }
 
 .lesson-date {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-tertiary);
+  font-family: var(--font-family-serif);
+  font-style: italic;
+  font-size: var(--font-size-xs);
+  color: var(--color-gold-deep);
+  letter-spacing: var(--tracking-wide);
 }
 
 .lesson-emoji { font-size: var(--font-size-base); }
@@ -99,6 +160,7 @@
   font-size: var(--font-size-base);
   color: var(--color-text-primary);
   font-weight: var(--font-weight-medium);
+  letter-spacing: var(--tracking-wide);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -107,21 +169,42 @@
 .lesson-meta {
   display: flex;
   gap: 16rpx;
-  margin-top: 4rpx;
+  margin-top: 8rpx;
+  align-items: center;
 }
 
-.lesson-type, .lesson-duration {
+.lesson-type {
+  font-size: var(--font-size-xs);
+  color: var(--color-gold-deep);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
+}
+.lesson-duration {
   font-size: var(--font-size-xs);
   color: var(--color-text-tertiary);
+  letter-spacing: var(--tracking-wide);
+  position: relative;
+  padding-left: 16rpx;
+}
+.lesson-duration::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  width: 6rpx;
+  height: 6rpx;
+  background: var(--color-gold);
+  transform: translateY(-50%) rotate(45deg);
 }
 
 .lesson-arrow {
-  font-size: var(--font-size-lg);
-  color: var(--color-text-tertiary);
-  margin-left: 8rpx;
+  font-size: var(--font-size-md);
+  color: var(--color-gold);
+  margin-left: 12rpx;
+  font-family: var(--font-family-serif);
 }
 
-/* 空态 */
+/* ===== 空态 ===== */
 .empty-state {
   display: flex;
   flex-direction: column;
@@ -130,24 +213,33 @@
 }
 
 .empty-text {
-  font-size: var(--font-size-base);
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-md);
   color: var(--color-text-secondary);
+  letter-spacing: var(--tracking-wide);
 }
 
 .empty-hint {
+  font-family: var(--font-family-serif);
+  font-style: italic;
   font-size: var(--font-size-sm);
   color: var(--color-text-tertiary);
-  margin-top: 12rpx;
+  margin-top: 16rpx;
+  letter-spacing: var(--tracking-wide);
 }
 
 .empty-btn {
-  margin-top: 32rpx;
-  padding: 16rpx 48rpx;
-  background: var(--color-accent);
-  border-radius: var(--radius-full);
+  margin-top: 48rpx;
+  padding: 20rpx 56rpx;
+  background: var(--gradient-gold);
+  border-radius: var(--radius-sm);
+  box-shadow: var(--shadow-gold);
 }
 
 .empty-btn-text {
   font-size: var(--font-size-sm);
-  color: var(--color-text-inverse);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-bg-noir);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
 }

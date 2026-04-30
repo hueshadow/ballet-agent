@@ -1,6 +1,7 @@
 Component({
   data: {
-    selected: 0,
+    selected: null, // change to null so the first setData triggers state change
+    animatingIndex: null,
     list: [
       {
         pagePath: '/pages/home/home',

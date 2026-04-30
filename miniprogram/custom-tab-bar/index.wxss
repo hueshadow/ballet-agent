@@ -6,11 +6,27 @@
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100rpx;
-  background: #fff;
-  border-top: 1rpx solid #e5e5e5;
+  height: 110rpx;
+  background: #fbf8f1;
   padding-bottom: env(safe-area-inset-bottom);
   z-index: 999;
+  box-shadow: 0 -4rpx 24rpx rgba(35, 28, 16, 0.06);
+}
+
+/* 顶部金色细线 + 居中钻石装饰 */
+.tab-bar::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 24rpx;
+  right: 24rpx;
+  height: 1rpx;
+  background: linear-gradient(90deg,
+    transparent 0%,
+    #b89968 20%,
+    #d4b57f 50%,
+    #b89968 80%,
+    transparent 100%);
 }
 
 .tab-bar-item {
@@ -20,142 +36,131 @@
   align-items: center;
   justify-content: center;
   height: 100%;
+  position: relative;
+  transition: transform 250ms cubic-bezier(0.32, 0.72, 0.36, 1);
+}
+
+.tab-bar-item.active::after {
+  content: '';
+  position: absolute;
+  top: 6rpx;
+  left: 50%;
+  transform: translateX(-50%) rotate(45deg);
+  width: 6rpx;
+  height: 6rpx;
+  background: #b89968;
 }
 
 .tab-text {
   font-size: 20rpx;
-  color: #999;
-  margin-top: 4rpx;
-  letter-spacing: 0.5rpx;
+  color: #8c8472;
+  margin-top: 6rpx;
+  letter-spacing: 2rpx;
 }
 
 .tab-bar-item.active .tab-text {
-  color: #000;
+  color: #b89968;
   font-weight: 500;
 }
 
-/* 图标基础样式 */
+/* ============================================
+   Art Deco 芭蕾元素图标 (SVG Mask)
+   ============================================ */
+
+@-webkit-keyframes iconPop {
+  0% { -webkit-transform: scale(0.8) translateY(2rpx); transform: scale(0.8) translateY(2rpx); }
+  50% { -webkit-transform: scale(1.15) translateY(-4rpx); transform: scale(1.15) translateY(-4rpx); }
+  100% { -webkit-transform: scale(1) translateY(0); transform: scale(1) translateY(0); }
+}
+
+@keyframes iconPop {
+  0% { -webkit-transform: scale(0.8) translateY(2rpx); transform: scale(0.8) translateY(2rpx); }
+  50% { -webkit-transform: scale(1.15) translateY(-4rpx); transform: scale(1.15) translateY(-4rpx); }
+  100% { -webkit-transform: scale(1) translateY(0); transform: scale(1) translateY(0); }
+}
+
 .icon {
-  width: 44rpx;
-  height: 44rpx;
-  position: relative;
+  width: 48rpx;
+  height: 48rpx;
+  background-color: #8c8472;
+  -webkit-mask-size: contain;
+  -webkit-mask-repeat: no-repeat;
+  -webkit-mask-position: center;
+  transition: background-color 250ms ease, transform 200ms ease;
+  transform-origin: bottom center;
 }
 
-/* 简约线条图标 —— 用 CSS 绘制 */
-.icon-home::before {
-  content: '';
-  display: block;
-  width: 20rpx;
-  height: 16rpx;
-  border: 3rpx solid #999;
-  border-top: none;
-  position: absolute;
-  bottom: 4rpx;
-  left: 50%;
-  transform: translateX(-50%);
+.icon.icon-active {
+  background-color: #b89968;
+  -webkit-animation: iconPop 400ms cubic-bezier(0.32, 0.72, 0.36, 1) forwards;
+  animation: iconPop 400ms cubic-bezier(0.32, 0.72, 0.36, 1) forwards;
 }
-.icon-home::after {
-  content: '';
-  display: block;
-  width: 0;
-  height: 0;
-  border-left: 16rpx solid transparent;
-  border-right: 16rpx solid transparent;
-  border-bottom: 12rpx solid #999;
-  position: absolute;
-  top: 4rpx;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.icon-home.icon-active::before { border-color: #000; }
-.icon-home.icon-active::after { border-bottom-color: #000; }
 
-.icon-list::before {
-  content: '';
-  display: block;
-  width: 24rpx;
-  height: 0;
-  border-top: 3rpx solid #999;
-  border-bottom: 3rpx solid #999;
-  padding-top: 6rpx;
-  position: absolute;
-  top: 10rpx;
-  left: 50%;
-  transform: translateX(-50%);
+/* 按钮点击时的即时压低反馈 */
+.tab-hover .icon {
+  transform: scale(0.85) translateY(4rpx) !important;
+  opacity: 0.8;
 }
-.icon-list::after {
-  content: '';
-  display: block;
-  width: 24rpx;
-  height: 0;
-  border-top: 3rpx solid #999;
-  position: absolute;
-  bottom: 10rpx;
-  left: 50%;
-  transform: translateX(-50%);
+.tab-hover .tab-text {
+  opacity: 0.8;
 }
-.icon-list.icon-active::before { border-color: #000; }
-.icon-list.icon-active::after { border-color: #000; }
+.tab-hover.center .center-btn {
+  transform: scale(0.92);
+  opacity: 0.9;
+}
 
-.icon-video::before {
-  content: '';
-  display: block;
-  width: 24rpx;
-  height: 18rpx;
-  border: 3rpx solid #999;
-  border-radius: 4rpx;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+/* 首页 · 舞者 (Home) */
+.icon-home {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='12' cy='4' r='1.5'/%3E%3Cpath d='M12 5.5C8.5 6 7.5 1.5 12 1'/%3E%3Cpath d='M12 5.5C15.5 6 16.5 1.5 12 1'/%3E%3Cpath d='M12 5.5v7.5'/%3E%3Cpath d='M12 13v9'/%3E%3Cpath d='M12 13l3.5 1.5L12 17.5'/%3E%3Cpath d='M7 11.5Q12 14 17 11.5Q12 10 7 11.5' fill='black' stroke='none'/%3E%3C/svg%3E");
 }
-.icon-video.icon-active::before { border-color: #000; }
 
-.icon-profile::before {
-  content: '';
-  display: block;
-  width: 14rpx;
-  height: 14rpx;
-  border: 3rpx solid #999;
-  border-radius: 50%;
-  position: absolute;
-  top: 4rpx;
-  left: 50%;
-  transform: translateX(-50%);
+/* 记录 · 足尖鞋 (Lessons) */
+.icon-list {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M8.5 22h7c1.5 0 2.5-3 2.5-10 0-6-2.5-10-6-10s-6 4-6 10c0 7 1 10 2.5 10z'/%3E%3Cpath d='M10 14l4-3M14 14l-4-3'/%3E%3Cpath d='M8.5 18h7'/%3E%3C/svg%3E");
 }
-.icon-profile::after {
-  content: '';
-  display: block;
-  width: 24rpx;
-  height: 10rpx;
-  border: 3rpx solid #999;
-  border-bottom: none;
-  border-radius: 12rpx 12rpx 0 0;
-  position: absolute;
-  bottom: 6rpx;
-  left: 50%;
-  transform: translateX(-50%);
-}
-.icon-profile.icon-active::before { border-color: #000; }
-.icon-profile.icon-active::after { border-color: #000; }
 
-/* 中间 + 号按钮 */
+/* 动作库 · 芭蕾裙 (Moves) */
+.icon-video {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 14c0 2 4 4 9 4s9-2 9-4-4-5-9-5-9 2-9 5z'/%3E%3Cpath d='M9 9V6c0-1.5 1.5-2 3-2s3 .5 3 2v3'/%3E%3Cpath d='M7 14c1.5 1.5 4 2.5 5 2.5s3.5-1 5-2.5'/%3E%3C/svg%3E");
+}
+
+/* 我的 · 皇冠 (Profile) */
+.icon-profile {
+  -webkit-mask-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='1.2' stroke-linecap='round' stroke-linejoin='round' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3 17l3-10 4 4 2-6 2 6 4-4 3 10z'/%3E%3Cpath d='M3 19h18M3 21h18'/%3E%3Ccircle cx='12' cy='4' r='1' fill='black'/%3E%3Ccircle cx='6' cy='6' r='1' fill='black'/%3E%3Ccircle cx='18' cy='6' r='1' fill='black'/%3E%3C/svg%3E");
+}
+
+/* 中间 + 号按钮 · 香槟金圆 */
 .center-btn {
-  width: 88rpx;
-  height: 88rpx;
-  background: #000;
+  width: 96rpx;
+  height: 96rpx;
+  background:
+    radial-gradient(circle at 30% 30%,
+      #e6d4ad 0%,
+      #d4b57f 35%,
+      #b89968 70%,
+      #8c6f3f 100%);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  margin-top: -40rpx;
-  box-shadow: 0 4rpx 12rpx rgba(0, 0, 0, 0.15);
+  margin-top: -48rpx;
+  box-shadow:
+    0 8rpx 20rpx rgba(140, 111, 63, 0.35),
+    inset 0 0 0 2rpx rgba(255, 255, 255, 0.2);
+  position: relative;
+}
+.center-btn::before {
+  content: '';
+  position: absolute;
+  inset: 6rpx;
+  border-radius: 50%;
+  border: 1rpx solid rgba(251, 248, 241, 0.4);
 }
 
 .plus-icon {
-  color: #fff;
-  font-size: 44rpx;
-  font-weight: 300;
+  color: #131826;
+  font-size: 48rpx;
+  font-weight: 200;
   line-height: 1;
   margin-top: -4rpx;
 }

@@ -1,78 +1,131 @@
 @import '/styles/tokens.wxss';
 
 .page {
-  padding: 32rpx;
-  padding-bottom: calc(100rpx + env(safe-area-inset-bottom));
+  padding: 32rpx 32rpx calc(160rpx + env(safe-area-inset-bottom));
+  background: var(--color-bg-primary);
+  min-height: 100vh;
 }
 
-/* 用户卡片 */
+/* ===== 用户卡片 ===== */
 .profile-card {
+  position: relative;
   display: flex;
   align-items: center;
-  padding: 32rpx 0;
-  margin-bottom: 16rpx;
+  padding: 48rpx 36rpx;
+  margin-bottom: 32rpx;
+  background: var(--color-bg-paper);
+  border: 1rpx solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+}
+.profile-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 24rpx;
+  right: 24rpx;
+  height: 1rpx;
+  background: var(--gradient-gold-line);
+}
+.profile-card::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 24rpx;
+  right: 24rpx;
+  height: 1rpx;
+  background: var(--gradient-gold-line);
 }
 
 .avatar {
-  width: 112rpx;
-  height: 112rpx;
+  width: 128rpx;
+  height: 128rpx;
   border-radius: 50%;
   background: var(--color-bg-secondary);
   flex-shrink: 0;
+  box-shadow:
+    0 0 0 2rpx var(--color-bg-paper),
+    0 0 0 3rpx var(--color-gold);
 }
 
 .profile-info {
   flex: 1;
-  margin-left: 24rpx;
+  margin-left: 32rpx;
+  min-width: 0;
 }
 
 .nickname {
   display: block;
-  font-size: var(--font-size-lg);
-  font-weight: var(--font-weight-semibold);
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-xl);
+  font-weight: var(--font-weight-light);
   color: var(--color-text-primary);
+  letter-spacing: var(--tracking-wide);
+  line-height: 1.2;
 }
 
 .dance-age {
   display: block;
+  margin-top: 12rpx;
+  font-family: var(--font-family-serif);
+  font-style: italic;
   font-size: var(--font-size-sm);
-  color: var(--color-text-tertiary);
-  margin-top: 6rpx;
+  color: var(--color-gold-deep);
+  letter-spacing: var(--tracking-wide);
 }
 
 .edit-btn {
-  padding: 12rpx 28rpx;
-  border: 1rpx solid var(--color-border);
-  border-radius: var(--radius-full);
+  padding: 14rpx 28rpx;
+  border: 1rpx solid var(--color-gold);
+  border-radius: var(--radius-pill);
+  background: rgba(212, 181, 127, 0.06);
 }
 
 .edit-text {
-  font-size: var(--font-size-sm);
-  color: var(--color-text-secondary);
+  font-size: var(--font-size-xs);
+  color: var(--color-gold-deep);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
 }
 
-/* 信息区块 */
+/* ===== 信息区块 ===== */
 .section {
-  padding: 20rpx 0;
-  border-bottom: 1rpx solid var(--color-border-light);
+  position: relative;
+  padding: 28rpx 0;
+}
+.section + .section {
+  border-top: 1rpx solid var(--color-border-light);
 }
 
 .section-label {
   display: block;
-  font-size: var(--font-size-sm);
-  color: var(--color-text-tertiary);
-  margin-bottom: 8rpx;
+  font-size: 20rpx;
+  letter-spacing: var(--tracking-widest);
+  color: var(--color-gold-deep);
+  text-transform: uppercase;
+  margin-bottom: 12rpx;
 }
 
 .section-value {
   display: block;
-  font-size: var(--font-size-base);
+  font-family: var(--font-family-serif);
+  font-size: var(--font-size-md);
+  font-weight: var(--font-weight-normal);
   color: var(--color-text-primary);
+  letter-spacing: var(--tracking-wide);
+  line-height: 1.5;
 }
 
-/* 管理菜单 */
+/* ===== 菜单分组 ===== */
 .menu-group {
-  margin-top: 40rpx;
+  position: relative;
+  margin-top: 56rpx;
+  padding: 8rpx 32rpx;
+  background: var(--color-bg-paper);
+  border: 1rpx solid var(--color-border-light);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
 }
 
 .menu-item {
@@ -80,15 +133,31 @@
   align-items: center;
   justify-content: space-between;
   padding: 32rpx 0;
-  border-bottom: 1rpx solid var(--color-border-light);
+  position: relative;
+}
+.menu-item + .menu-item {
+  border-top: 1rpx solid var(--color-border-light);
+}
+
+.menu-item::before {
+  content: '';
+  width: 6rpx;
+  height: 6rpx;
+  background: var(--color-gold);
+  transform: rotate(45deg);
+  margin-right: 24rpx;
+  flex-shrink: 0;
 }
 
 .menu-label {
+  flex: 1;
   font-size: var(--font-size-base);
   color: var(--color-text-primary);
+  letter-spacing: var(--tracking-wide);
 }
 
 .menu-arrow {
-  font-size: var(--font-size-lg);
-  color: var(--color-text-tertiary);
+  font-size: var(--font-size-md);
+  color: var(--color-gold);
+  font-family: var(--font-family-serif);
 }
